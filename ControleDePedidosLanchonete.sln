@@ -5,11 +5,16 @@ VisualStudioVersion = 17.6.33723.286
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ControleDePedidos.API", "API\ControleDePedidos.API.csproj", "{2A684371-115B-4E33-BD7D-477EF97CE396}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Application", "Application\Application.csproj", "{7614A95C-9E00-48C9-9784-2A78149F51C8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ControleDePedidos.Application", "Application\ControleDePedidos.Application.csproj", "{7614A95C-9E00-48C9-9784-2A78149F51C8}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ControleDePedidos.Dominio", "Domain\ControleDePedidos.Dominio.csproj", "{4E584D86-9684-4383-AEFE-885297129356}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ControleDePedidos.Domain", "Domain\ControleDePedidos.Domain.csproj", "{4E584D86-9684-4383-AEFE-885297129356}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ControleDePedidos.Infraestrutura", "Infrastructure\ControleDePedidos.Infraestrutura.csproj", "{A41EB8BD-7AE4-412D-8B68-083880DE238D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ControleDePedidos.Infrastructure", "Infrastructure\ControleDePedidos.Infrastructure.csproj", "{A41EB8BD-7AE4-412D-8B68-083880DE238D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{7C744005-1A2A-4339-A4FB-5C8BF9292622}"
+	ProjectSection(SolutionItems) = preProject
+		docker-compose.yaml = docker-compose.yaml
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

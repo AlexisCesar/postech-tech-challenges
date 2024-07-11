@@ -1,4 +1,4 @@
-﻿namespace ControleDePedidos.Dominio.ValueObjects
+﻿namespace ControleDePedidos.Dominio.Entities.ValueObjects
 {
     public class Email : ValueObject
     {

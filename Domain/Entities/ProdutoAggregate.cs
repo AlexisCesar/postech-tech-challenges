@@ -1,4 +1,4 @@
-﻿using ControleDePedidos.Dominio.Enums;
+﻿using ControleDePedidos.Dominio.Entities.Enums;
 
 namespace ControleDePedidos.Dominio.Entidades
 {

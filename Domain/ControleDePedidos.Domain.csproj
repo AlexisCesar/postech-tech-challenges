@@ -7,16 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Ports\**" />
     <Compile Remove="ServicosDeAplicacao\**" />
-    <EmbeddedResource Remove="Ports\**" />
     <EmbeddedResource Remove="ServicosDeAplicacao\**" />
-    <None Remove="Ports\**" />
     <None Remove="ServicosDeAplicacao\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Entidades\" />
+    <Folder Include="Services\" />
   </ItemGroup>
 
 </Project>

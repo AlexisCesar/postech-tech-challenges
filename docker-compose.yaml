@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  lanchonetedobairro_db:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    restart: always
+    container_name: lanchonetedobairro_db
+    volumes:
+      - controleDePedidos:/var/lib/mssql
+    environment:
+      SA_PASSWORD: "Posgraduation@109283" 
+      ACCEPT_EULA: "Y"
+      MSSQL_TELEMETRY_OPTOUT: "true"
+    networks:
+      - controledepedidos-network
+    healthcheck:
+      test: ["CMD-SHELL", "/opt/mssql-tools/bin/sqlcmd -Q 'SELECT 1' -S localhost -U sa -P Posgraduation@109283"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    ports:
+      - "1433:1433"
+
+volumes:
+  controleDePedidos:  
+
+networks:
+  controledepedidos-network:
+    driver: bridge

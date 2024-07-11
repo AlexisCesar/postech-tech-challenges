@@ -1,4 +1,4 @@
-﻿using ControleDePedidos.Dominio.ValueObjects;
+﻿using ControleDePedidos.Dominio.Entities.ValueObjects;
 
 namespace ControleDePedidos.Dominio.Entidades
 {

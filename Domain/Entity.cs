@@ -2,6 +2,6 @@
 {
     public class Entity
     {
-        Guid Id { get; }
+        public Guid Id { get; }
     }
 }

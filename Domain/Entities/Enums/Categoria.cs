@@ -1,4 +1,4 @@
-﻿namespace ControleDePedidos.Dominio.Enums
+﻿namespace ControleDePedidos.Dominio.Entities.Enums
 {
     public enum Categoria
     {
