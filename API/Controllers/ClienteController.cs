@@ -20,6 +20,7 @@ namespace ControleDePedidos.Controllers
         [Route("cadastro")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(CadastraClienteDto))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> CadastraCliente([FromBody] CadastraClienteDto cadastraClienteDto)
         {
             try
@@ -32,14 +33,33 @@ namespace ControleDePedidos.Controllers
             {
                 return BadRequest(ex.Message);
             }
+            catch
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Erro ao processar a requisição, tente novamente mais tarde.");
+            }
         }
 
         [HttpPost]
         [Route("login")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public IActionResult BuscaCliente([FromBody] string cpf)
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> BuscaCliente([FromBody] string cpf)
         {
-            return Ok(new ClienteDto() { Nome = "Bruna", Email = "bruna@gmail.com" });
+            try
+            {
+                var cliente = await ClientApplication.GetClienteByCPFAsync(cpf);
+                return cliente == null ? NotFound("Cliente nao encontrado.") : Ok(cliente);
+            }
+            catch (GetClienteByCpfException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Erro ao processar a requisição, tente novamente mais tarde.");
+            }
         }
     }
 }

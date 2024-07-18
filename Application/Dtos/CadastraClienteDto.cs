@@ -19,11 +19,17 @@ namespace ControleDePedidos.Application.Dtos
         )]
         public string? Nome { get; set; }
 
-        [Required]
+
+        [Required]     
+        [StringLength(
+            maximumLength: 50,
+            ErrorMessage = "Endereço de email acima do tamanho permitido."
+        )]
         [RegularExpression(
             "^[A-z0-9.]+@[A-z0-9]+\\.[a-z]+(\\.[a-z]+)?$",
             ErrorMessage = "Formato de email inválido."
         )]
+        [EmailAddress]        
         public string? EnderecoEmail { get; set; }
     }
 }

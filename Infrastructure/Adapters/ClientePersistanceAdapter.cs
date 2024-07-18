@@ -1,6 +1,7 @@
 ﻿using ControleDePedidos.Application.Ports;
 using ControleDePedidos.Dominio.Entidades;
 using ControleDePedidos.Infrastructure.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace ControleDePedidos.Infrastructure.Adapters
 {
@@ -11,6 +12,11 @@ namespace ControleDePedidos.Infrastructure.Adapters
         public ClientePersistanceAdapter(ApplicationContext context)
         {
             Context = context;    
+        }
+
+        public async Task<ClienteAggregate?> GetClienteByCPF(string cpf)
+        {
+            return await Context.Cliente.FirstOrDefaultAsync(c => c.CPF == cpf);
         }
 
         public async Task<bool> SalvarClienteAsync(ClienteAggregate clienteAggregate)
