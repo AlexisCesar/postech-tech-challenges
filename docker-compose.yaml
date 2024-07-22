@@ -20,7 +20,16 @@ services:
       retries: 3
     ports:
       - "1433:1433"
-
+  lanchonetedobairro_api:
+    build: .
+    container_name: lanchonetedobairro_api
+    networks:
+      - controledepedidos-network
+    depends_on:
+      lanchonetedobairro_db:
+        condition: service_healthy
+    ports:
+     - '7575:80'
 volumes:
   controleDePedidos:  
 

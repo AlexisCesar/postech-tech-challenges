@@ -9,7 +9,7 @@ namespace ControleDePedidos.Infrastructure.Data
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Server=::1,1433;Database=controleDePedidos;User=sa;Password=Posgraduation@109283;Encrypt=True;TrustServerCertificate=True;");
+            optionsBuilder.UseSqlServer("Server=lanchonetedobairro_db,1433;Database=controleDePedidos;User=sa;Password=Posgraduation@109283;Encrypt=True;TrustServerCertificate=True;");
             base.OnConfiguring(optionsBuilder);
         }
 

@@ -3,6 +3,7 @@ using ControleDePedidos.Application.Interfaces;
 using ControleDePedidos.Application.Ports;
 using ControleDePedidos.Infrastructure.Adapters;
 using ControleDePedidos.Infrastructure.Data;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,12 +22,21 @@ builder.Services.AddScoped<IClientePersistancePort, ClientePersistanceAdapter>()
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+// Run migrations if needed
+using (var scope = app.Services.CreateScope())
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
+    var services = scope.ServiceProvider;
+
+    var context = services.GetRequiredService<ApplicationContext>();
+    if (context.Database.GetPendingMigrations().Any())
+    {
+        context.Database.Migrate();
+    }
 }
+
+// Configure the HTTP request pipeline.
+app.UseSwagger();
+app.UseSwaggerUI();
 
 app.UseHttpsRedirection();
 
