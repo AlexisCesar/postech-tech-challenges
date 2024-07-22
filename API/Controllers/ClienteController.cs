@@ -21,6 +21,7 @@ namespace ControleDePedidos.Controllers
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(CadastraClienteDto))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(StatusCodes.Status409Conflict)]
         public async Task<IActionResult> CadastraCliente([FromBody] CadastraClienteDto cadastraClienteDto)
         {
             try
@@ -32,6 +33,10 @@ namespace ControleDePedidos.Controllers
             catch (CadastrarClienteException ex)
             {
                 return BadRequest(ex.Message);
+            }
+            catch (ClienteJaCadastradoException ex)
+            {
+                return Conflict(ex.Message);
             }
             catch
             {
