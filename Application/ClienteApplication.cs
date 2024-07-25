@@ -10,9 +10,9 @@ namespace ControleDePedidos.Application
 {
     public partial class ClienteApplication : IClienteApplication
     {
-        private readonly IClientePersistancePort ClientePersistancePort;
+        private readonly IClientePersistencePort ClientePersistancePort;
 
-        public ClienteApplication(IClientePersistancePort clientePersistancePort)
+        public ClienteApplication(IClientePersistencePort clientePersistancePort)
         {
             ClientePersistancePort = clientePersistancePort;
         }

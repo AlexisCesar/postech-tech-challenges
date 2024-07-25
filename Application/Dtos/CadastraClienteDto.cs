@@ -15,7 +15,7 @@ namespace ControleDePedidos.Application.Dtos
         [StringLength(
             maximumLength: 60, 
             MinimumLength = 1, 
-            ErrorMessage = "O nome deve ter entre 1 e 100 caracteres."
+            ErrorMessage = "O nome deve ter entre 1 e 60 caracteres."
         )]
         public string? Nome { get; set; }
 

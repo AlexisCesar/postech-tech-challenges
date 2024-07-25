@@ -18,7 +18,9 @@ builder.Services.AddDbContext<ApplicationContext>();
 
 // Configure DI
 builder.Services.AddScoped<IClienteApplication, ClienteApplication>();
-builder.Services.AddScoped<IClientePersistancePort, ClientePersistanceAdapter>();
+builder.Services.AddScoped<IClientePersistencePort, ClientePersistenceAdapter>();
+builder.Services.AddScoped<IProdutoApplication, ProdutoApplication>();
+builder.Services.AddScoped<IProdutoPersistencePort, ProdutoPersistenceAdapter>();
 
 var app = builder.Build();
 

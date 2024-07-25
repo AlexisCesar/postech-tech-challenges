@@ -5,11 +5,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ControleDePedidos.Infrastructure.Adapters
 {
-    public class ClientePersistanceAdapter : IClientePersistancePort
+    public class ClientePersistenceAdapter : IClientePersistencePort
     {
         private ApplicationContext Context;
 
-        public ClientePersistanceAdapter(ApplicationContext context)
+        public ClientePersistenceAdapter(ApplicationContext context)
         {
             Context = context;    
         }

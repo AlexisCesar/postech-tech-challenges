@@ -2,7 +2,7 @@
 
 namespace ControleDePedidos.Application.Ports
 {
-    public interface IClientePersistancePort
+    public interface IClientePersistencePort
     {
         Task<bool> SalvarClienteAsync(ClienteAggregate clienteAggregate);
         Task<ClienteAggregate?> GetClienteByCPF(string cpf);
