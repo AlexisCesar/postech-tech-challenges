@@ -1,5 +1,8 @@
-﻿namespace ControleDePedidos.Dominio.Entities.Enums
+﻿using System.Text.Json.Serialization;
+
+namespace ControleDePedidos.Dominio.Entities.Enums
 {
+    [JsonConverter(typeof(JsonStringEnumConverter))]
     public enum Categoria
     {
         Lanche = 1,

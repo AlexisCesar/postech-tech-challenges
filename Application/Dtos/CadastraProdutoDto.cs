@@ -6,7 +6,7 @@ namespace ControleDePedidos.Application.Dtos
 {
     public class CadastraProdutoDto
     {
-        [Required]
+        [Required(ErrorMessage = "O nome do produto é obrigatório.")]
         [StringLength(
             maximumLength: 20,
             MinimumLength = 1,
@@ -15,6 +15,7 @@ namespace ControleDePedidos.Application.Dtos
         public string Nome { get; set; }
 
         [Required]
+        [Range(0.01, 100.00, ErrorMessage = "O preço deve estar entre 0.01 e 100.00.")]
         public double Preco { get; set; }
 
         [Required]
