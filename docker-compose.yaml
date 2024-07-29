@@ -2,24 +2,19 @@ version: '3.8'
 
 services:
   lanchonetedobairro_db:
-    image: mcr.microsoft.com/mssql/server:2022-latest
+    image: mysql
     restart: always
     container_name: lanchonetedobairro_db
     volumes:
-      - controleDePedidos:/var/lib/mssql
+      - lanchonetedobairro:/var/lib/mysql
     environment:
-      SA_PASSWORD: "Posgraduation@109283" 
-      ACCEPT_EULA: "Y"
-      MSSQL_TELEMETRY_OPTOUT: "true"
+      MYSQL_ROOT_PASSWORD: Posgraduation@109283
     networks:
       - controledepedidos-network
     healthcheck:
-      test: ["CMD-SHELL", "/opt/mssql-tools/bin/sqlcmd -Q 'SELECT 1' -S localhost -U sa -P Posgraduation@109283"]
-      interval: 30s
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
       timeout: 10s
       retries: 3
-    ports:
-      - "1433:1433"
   lanchonetedobairro_api:
     build: .
     container_name: lanchonetedobairro_api
@@ -31,7 +26,7 @@ services:
     ports:
      - '7575:80'
 volumes:
-  controleDePedidos:  
+  lanchonetedobairro:  
 
 networks:
   controledepedidos-network:
