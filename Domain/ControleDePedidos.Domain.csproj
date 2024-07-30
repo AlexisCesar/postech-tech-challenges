@@ -7,13 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Services\**" />
     <Compile Remove="ServicosDeAplicacao\**" />
+    <EmbeddedResource Remove="Services\**" />
     <EmbeddedResource Remove="ServicosDeAplicacao\**" />
+    <None Remove="Services\**" />
     <None Remove="ServicosDeAplicacao\**" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Services\" />
   </ItemGroup>
 
 </Project>

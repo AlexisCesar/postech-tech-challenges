@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ControleDePedidos.Application.Exceptions
+﻿namespace ControleDePedidos.Application.Exceptions
 {
     public class CadastrarProdutoException : Exception
     {
