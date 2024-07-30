@@ -1,6 +1,6 @@
-﻿using ControleDePedidos.Application.Dtos;
-using ControleDePedidos.Application.Ports;
+﻿using ControleDePedidos.Application.Ports;
 using ControleDePedidos.Dominio.Entidades;
+using ControleDePedidos.Dominio.Entities.Enums;
 using ControleDePedidos.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 
@@ -30,6 +30,11 @@ namespace ControleDePedidos.Infrastructure.Adapters
         public async Task<IEnumerable<ProdutoAggregate>> GetProdutosAsync()
         {
             return await Context.Produto.ToListAsync();
+        }
+
+        public async Task<IEnumerable<ProdutoAggregate>> GetProdutosByCategoriaAsync(Categoria categoria)
+        {
+            return await Context.Produto.Where(x => x.Categoria == categoria).ToListAsync();
         }
     }
 }

@@ -17,6 +17,7 @@ services:
       retries: 3
   lanchonetedobairro_api:
     build: .
+    restart: always
     container_name: lanchonetedobairro_api
     networks:
       - controledepedidos-network

@@ -3,6 +3,7 @@ using ControleDePedidos.Application.Exceptions;
 using ControleDePedidos.Application.Extensions;
 using ControleDePedidos.Application.Interfaces;
 using ControleDePedidos.Application.Ports;
+using ControleDePedidos.Dominio.Entities.Enums;
 
 namespace ControleDePedidos.Application
 {
@@ -20,6 +21,12 @@ namespace ControleDePedidos.Application
         {
             var produtos = await ProdutoPersistancePort.GetProdutosAsync();
 
+            return produtos.Select(x => x.ToProdutoDto());
+        }
+
+        public async Task<IEnumerable<ProdutoDto>> BuscaProdutosAsync(Categoria categoria)
+        {
+            var produtos = await ProdutoPersistancePort.GetProdutosByCategoriaAsync(categoria);
             return produtos.Select(x => x.ToProdutoDto());
         }
 

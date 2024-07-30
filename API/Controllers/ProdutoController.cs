@@ -1,6 +1,7 @@
 ﻿using ControleDePedidos.Application.Dtos;
 using ControleDePedidos.Application.Exceptions;
 using ControleDePedidos.Application.Interfaces;
+using ControleDePedidos.Dominio.Entities.Enums;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ControleDePedidos.API.Controllers
@@ -61,6 +62,30 @@ namespace ControleDePedidos.API.Controllers
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, "Erro ao processar a requisição, tente novamente mais tarde.");
             }           
+        }
+
+        [HttpGet]
+        [Route("todos/{categoria}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> BuscaProdutosPorCategoria([FromRoute] Categoria categoria)
+        {
+            try
+            {
+                var produtos = await ProdutoApplication.BuscaProdutosAsync(categoria);
+
+                return produtos.Any() ? Ok(produtos) : NotFound();
+            }
+            catch (CategoriaInvalidaException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Erro ao processar a requisição, tente novamente mais tarde.");
+            }
         }
     }
 }
