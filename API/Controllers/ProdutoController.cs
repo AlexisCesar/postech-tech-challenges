@@ -10,7 +10,7 @@ namespace ControleDePedidos.API.Controllers
     [Route("api/v1/[controller]")]
     public class ProdutoController : Controller
     {
-        private IProdutoApplication ProdutoApplication;
+        private readonly IProdutoApplication ProdutoApplication;
 
         public ProdutoController(IProdutoApplication produtoApplication)
         {
