@@ -36,5 +36,16 @@ namespace ControleDePedidos.Infrastructure.Adapters
         {
             return await Context.Produto.Where(x => x.Categoria == categoria).ToListAsync();
         }
+
+        public async Task<ProdutoAggregate?> GetProdutoByIdAsync(Guid id)
+        {
+            return await Context.Produto.FirstOrDefaultAsync(x => x.Id == id);
+        }
+
+        public bool RemoveProduto(ProdutoAggregate produto)
+        {
+            Context.Produto.Remove(produto);
+            return Context.SaveChanges() > 0;
+        }
     }
 }

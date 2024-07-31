@@ -1,0 +1,19 @@
+﻿namespace ControleDePedidos.Application.Exceptions
+{
+    public class ProdutoNaoCadastradoException : Exception
+    {
+        public ProdutoNaoCadastradoException()
+        {
+        }
+
+        public ProdutoNaoCadastradoException(string message)
+            : base(message)
+        {
+        }
+
+        public ProdutoNaoCadastradoException(string message, Exception inner)
+            : base(message, inner)
+        {
+        }
+    }
+}

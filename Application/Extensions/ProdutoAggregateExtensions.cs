@@ -14,6 +14,7 @@ namespace ControleDePedidos.Application.Extensions
 
             return new ProdutoDto()
             {
+                Id = produtoAggregate.Id,
                 Nome = produtoAggregate.Nome,
                 Preco = produtoAggregate.Preco,
                 Categoria = produtoAggregate.Categoria.ToString(),

@@ -87,5 +87,35 @@ namespace ControleDePedidos.API.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, "Erro ao processar a requisição, tente novamente mais tarde.");
             }
         }
+
+        [HttpDelete]
+        [Route("remover/{id}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> RemoveProduto([FromRoute] Guid id)
+        {
+            try
+            {
+                if (id == Guid.Empty) return BadRequest("Id nao pode ser nulo.");
+
+                await ProdutoApplication.RemoveProdutoAsync(id);
+
+                return NoContent();
+            }
+            catch (ProdutoNaoCadastradoException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (RemoveProdutoException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Erro ao processar a requisição, tente novamente mais tarde.");
+            }
+        }
     }
 }

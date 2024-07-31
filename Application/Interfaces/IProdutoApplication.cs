@@ -5,8 +5,9 @@ namespace ControleDePedidos.Application.Interfaces
 {
     public interface IProdutoApplication
     {
-        public Task<IEnumerable<ProdutoDto>> BuscaProdutosAsync();
-        public Task<IEnumerable<ProdutoDto>> BuscaProdutosAsync(Categoria nomeCategoria);
-        public Task CadastraProdutoAsync(CadastraProdutoDto cadastraProdutoDto);
+        Task<IEnumerable<ProdutoDto>> BuscaProdutosAsync();
+        Task<IEnumerable<ProdutoDto>> BuscaProdutosAsync(Categoria nomeCategoria);
+        Task CadastraProdutoAsync(CadastraProdutoDto cadastraProdutoDto);
+        Task RemoveProdutoAsync(Guid id);
     }
 }

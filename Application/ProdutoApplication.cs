@@ -43,6 +43,17 @@ namespace ControleDePedidos.Application
             if (!produtoCadastrado) throw new CadastrarProdutoException("Ocorreu um erro ao cadastrar o produto");
         }
 
+        public async Task RemoveProdutoAsync(Guid id)
+        {
+            var produtoCadastrado = await ProdutoPersistancePort.GetProdutoByIdAsync(id);
+
+            if (produtoCadastrado == null) throw new ProdutoNaoCadastradoException("Produto nao encontrado.");
+
+            var produtoRemovido = ProdutoPersistancePort.RemoveProduto(produtoCadastrado);
+
+            if (!produtoRemovido) throw new RemoveProdutoException("Ocorreu um erro ao remover o produto.");
+        }
+
         private async Task<bool> VerificarProdutoJaCadastrado(string nome)
         {
             var produto = await ProdutoPersistancePort.GetProdutoByNomeAsync(nome);
