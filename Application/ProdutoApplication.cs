@@ -60,5 +60,22 @@ namespace ControleDePedidos.Application
 
             return produto != null;
         }
+
+        public async Task<ProdutoDto> AtualizaProdutoAsync(Guid id, AtualizaProdutoDto produto)
+        {
+            var produtoCadastrado = await ProdutoPersistancePort.GetProdutoByIdAsync(id);
+
+            if (produtoCadastrado == null) throw new ProdutoNaoCadastradoException("Produto nao encontrado.");
+
+            produtoCadastrado.Nome = produto.Nome;
+            produtoCadastrado.Preco = produto.Preco;
+            produtoCadastrado.Categoria = produto.Categoria;
+
+            var produtoAtualizado = await ProdutoPersistancePort.UpdateProdutoAsync(produtoCadastrado);
+
+            if (!produtoAtualizado) throw new AtualizaProdutoException("Ocorreu um erro ao atualizar o produto.");
+
+            return produtoCadastrado.ToProdutoDto();
+        }
     }
 }

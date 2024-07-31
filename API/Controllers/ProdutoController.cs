@@ -117,5 +117,35 @@ namespace ControleDePedidos.API.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, "Erro ao processar a requisição, tente novamente mais tarde.");
             }
         }
+
+        [HttpPut]
+        [Route("atualizar/{id}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> AtualizarProduto([FromRoute] Guid id, [FromBody] AtualizaProdutoDto produto)
+        {
+            try
+            {
+                if (id == Guid.Empty) return BadRequest("Id nao pode ser nulo.");
+
+                var produtoAtualizado = await ProdutoApplication.AtualizaProdutoAsync(id, produto);
+
+                return Ok(produtoAtualizado);
+            }
+            catch (ProdutoNaoCadastradoException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (AtualizaProdutoException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Erro ao processar a requisição, tente novamente mais tarde.");
+            }
+        }
     }
 }

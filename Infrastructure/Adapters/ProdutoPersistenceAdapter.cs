@@ -47,5 +47,11 @@ namespace ControleDePedidos.Infrastructure.Adapters
             Context.Produto.Remove(produto);
             return Context.SaveChanges() > 0;
         }
+
+        public async Task<bool> UpdateProdutoAsync(ProdutoAggregate produtoCadastrado)
+        {
+            Context.Produto.Update(produtoCadastrado);
+            return await Context.SaveChangesAsync() > 0;
+        }
     }
 }

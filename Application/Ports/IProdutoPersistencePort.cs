@@ -11,5 +11,6 @@ namespace ControleDePedidos.Application.Ports
         Task<IEnumerable<ProdutoAggregate>> GetProdutosAsync();
         Task<IEnumerable<ProdutoAggregate>> GetProdutosByCategoriaAsync(Categoria categoria);
         bool RemoveProduto(ProdutoAggregate produtoAggregate);
+        Task<bool> UpdateProdutoAsync(ProdutoAggregate produtoCadastrado);
     }
 }

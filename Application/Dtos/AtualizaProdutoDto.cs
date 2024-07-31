@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace ControleDePedidos.Application.Dtos
 {
-    public class CadastraProdutoDto
+    public class AtualizaProdutoDto
     {
         [Required(ErrorMessage = "O nome do produto é obrigatório.")]
         [StringLength(
