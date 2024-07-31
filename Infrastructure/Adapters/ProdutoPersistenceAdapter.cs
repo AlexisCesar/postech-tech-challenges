@@ -53,5 +53,10 @@ namespace ControleDePedidos.Infrastructure.Adapters
             Context.Produto.Update(produtoCadastrado);
             return await Context.SaveChangesAsync() > 0;
         }
+
+        public async Task<List<ProdutoAggregate>> GetProdutosByIdsAsync(IEnumerable<Guid> ids)
+        {
+            return await Context.Produto.Where(x => ids.Contains(x.Id)).ToListAsync();
+        }
     }
 }

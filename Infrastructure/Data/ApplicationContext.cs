@@ -33,7 +33,10 @@ namespace ControleDePedidos.Infrastructure.Data
                 });
             });
 
-            modelBuilder.Entity<AcompanhamentoAggregate>(Entity => Entity.HasKey(e => e.Id));
+            modelBuilder.Entity<AcompanhamentoAggregate>(Entity => {
+                Entity.HasKey(e => e.Id);
+            });
+
             modelBuilder.Entity<ItemPedido>(Entity => Entity.HasKey(e => e.Id));
             modelBuilder.Entity<PagamentoAggregate>(Entity => Entity.HasKey(e => e.Id));
             modelBuilder.Entity<ProdutoAggregate>(Entity => Entity.HasKey(e => e.Id));

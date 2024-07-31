@@ -8,7 +8,7 @@ namespace ControleDePedidos.Application.Dtos
         public Guid IdProduto { get; set; }
         [Required]
         [Range(1, 200, ErrorMessage = "A quantidade deve ser maior do que 0 e menor ou igual a 200.")]
-        public int Quantidade { get; set; }
+        public short Quantidade { get; set; }
         [StringLength(
             maximumLength: 200,
             MinimumLength = 0,

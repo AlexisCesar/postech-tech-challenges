@@ -21,6 +21,8 @@ builder.Services.AddScoped<IClienteApplication, ClienteApplication>();
 builder.Services.AddScoped<IClientePersistencePort, ClientePersistenceAdapter>();
 builder.Services.AddScoped<IProdutoApplication, ProdutoApplication>();
 builder.Services.AddScoped<IProdutoPersistencePort, ProdutoPersistenceAdapter>();
+builder.Services.AddScoped<IPedidoApplication, PedidoApplication>();
+builder.Services.AddScoped<IPedidoPersistencePort, PedidoPersistenceAdapter>();
 
 var app = builder.Build();
 
