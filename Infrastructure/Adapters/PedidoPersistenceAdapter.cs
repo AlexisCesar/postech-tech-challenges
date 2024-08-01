@@ -28,6 +28,13 @@ namespace ControleDePedidos.Infrastructure.Adapters
             return pagamento;
         }
 
+        public async Task<PedidoAggregate?> GetPedidoById(Guid idPedido)
+        {
+            var pedido = await Context.Pedido.FirstOrDefaultAsync(x => x.Id == idPedido);
+
+            return pedido;
+        }
+
         public async Task<bool> SaveAcompanhamentoAsync(AcompanhamentoAggregate acompanhamento)
         {
             Context.Acompanhamento.Update(acompanhamento);

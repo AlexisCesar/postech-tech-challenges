@@ -76,5 +76,25 @@ namespace ControleDePedidos.Application
 
             if (!acompanhamentoAtualizado) throw new ConfirmarPagamentoException("Nao foi possivel atualizar o status do pedido.");
         }
+
+        public async Task AtualizaStatusComoProntoAsync(Guid idPedido)
+        {
+            var pedido = await PedidoPersistencePort.GetPedidoById(idPedido);
+
+            if (pedido == null) throw new PedidoNaoEncontradoException("Pedido nao encontrado");
+
+            var acompanhamento = await PedidoPersistencePort.GetAcompanhamentoByPedidoIdAsync(pedido.Id);
+
+            if (acompanhamento == null) throw new AcompanhamentoNaoEncontradoException("Nao foi encontrado acompanhamento para esse pedido.");
+
+            if(acompanhamento.Status != Status.Preparacao) throw new OperacaoInvalidaException("Status do pedido precisa estar em preparação para ser atualizado como pronto.");
+
+            acompanhamento.Status = Status.Pronto;
+
+            var acompanhamentoAtualizado = await PedidoPersistencePort.SaveAcompanhamentoAsync(acompanhamento);
+
+            if (!acompanhamentoAtualizado) throw new AtualizarStatusException("Nao foi possivel atualizar o status do pedido.");
+
+        }
     }
 }

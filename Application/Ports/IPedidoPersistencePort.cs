@@ -8,5 +8,6 @@ namespace ControleDePedidos.Application.Ports
         Task<PagamentoAggregate?> GetPagamentoByIdAsync(Guid idPagamento);
         Task<bool> SaveAcompanhamentoAsync(AcompanhamentoAggregate acompanhamento);
         Task<bool> SavePedidoAndAcompanhamentoAsync(PedidoAggregate pedido, AcompanhamentoAggregate acompanhamento, PagamentoAggregate pagamento);
+        Task <PedidoAggregate?> GetPedidoById (Guid idPedido);
     }
 }

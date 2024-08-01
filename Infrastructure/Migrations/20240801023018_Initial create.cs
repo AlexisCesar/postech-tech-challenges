@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace ControleDePedidos.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class Initialcreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -53,7 +53,7 @@ namespace ControleDePedidos.Infrastructure.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
-                    ClienteId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci")
+                    ClienteId = table.Column<Guid>(type: "char(36)", nullable: true, collation: "ascii_general_ci")
                 },
                 constraints: table =>
                 {
@@ -62,8 +62,7 @@ namespace ControleDePedidos.Infrastructure.Migrations
                         name: "FK_Pedido_Cliente_ClienteId",
                         column: x => x.ClienteId,
                         principalTable: "Cliente",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 

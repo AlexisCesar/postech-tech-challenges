@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ControleDePedidos.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20240731221609_Make Cliente nullable on Pedido")]
-    partial class MakeClientenullableonPedido
+    [Migration("20240801023018_Initial create")]
+    partial class Initialcreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

@@ -67,10 +67,47 @@ namespace ControleDePedidos.API.Controllers
             {
                 return NotFound(ex.Message);
             }
-            //catch
-            //{
-            //    return StatusCode(StatusCodes.Status500InternalServerError, "Erro ao processar a requisição, tente novamente mais tarde.");
-            //}
+            catch
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Erro ao processar a requisição, tente novamente mais tarde.");
+            }
+
+        }
+
+        [HttpPost("{idPedido}/status/pronto")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> AtualizaStatusComoPronto([FromRoute] Guid idPedido)
+        {
+            if (idPedido == Guid.Empty) return BadRequest("O id do pagamento nao pode ser nulo.");
+
+            try
+            {
+                await PedidoApplication.AtualizaStatusComoProntoAsync(idPedido);
+
+                return Ok();
+            }
+            catch (PedidoNaoEncontradoException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (AcompanhamentoNaoEncontradoException ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
+            catch (OperacaoInvalidaException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (AtualizarStatusException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Erro ao processar a requisição, tente novamente mais tarde.");
+            }
 
         }
     }
