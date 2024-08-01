@@ -4,6 +4,9 @@ namespace ControleDePedidos.Application.Ports
 {
     public interface IPedidoPersistencePort
     {
-        Task<bool> SavePedidoAndAcompanhamentoAsync(PedidoAggregate pedido, AcompanhamentoAggregate acompanhamento);
+        Task<AcompanhamentoAggregate?> GetAcompanhamentoByPedidoIdAsync(Guid idPedido);
+        Task<PagamentoAggregate?> GetPagamentoByIdAsync(Guid idPagamento);
+        Task<bool> SaveAcompanhamentoAsync(AcompanhamentoAggregate acompanhamento);
+        Task<bool> SavePedidoAndAcompanhamentoAsync(PedidoAggregate pedido, AcompanhamentoAggregate acompanhamento, PagamentoAggregate pagamento);
     }
 }

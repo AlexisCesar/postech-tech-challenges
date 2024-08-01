@@ -4,6 +4,7 @@ namespace ControleDePedidos.Application.Interfaces
 {
     public interface IPedidoApplication
     {
-        Task<short> RealizarPedido(PedidoDto pedidoDto);
+        Task ConfirmarPagamentoAsync(Guid idPagamento);
+        Task<PedidoRealizadoDto> RealizarPedido(PedidoDto pedidoDto);
     }
 }

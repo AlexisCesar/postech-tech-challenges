@@ -27,9 +27,9 @@ namespace ControleDePedidos.API.Controllers
 
             try
             {
-                var codigoAcompanhamento = await PedidoApplication.RealizarPedido(pedidoDto);
+                var pedidoRealizadoDto = await PedidoApplication.RealizarPedido(pedidoDto);
 
-                return Ok(codigoAcompanhamento);
+                return Ok(pedidoRealizadoDto);
             }
             catch (ProdutoNaoCadastradoException ex)
             {
@@ -39,6 +39,39 @@ namespace ControleDePedidos.API.Controllers
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, "Erro ao processar a requisição, tente novamente mais tarde.");
             }
+        }
+
+        [HttpPost("pagamento/confirmar/{idPagamento}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> ConfirmaPagamento([FromRoute] Guid idPagamento)
+        {
+            if (idPagamento == Guid.Empty) return BadRequest("O id do pagamento nao pode ser nulo.");
+
+            try
+            {
+                await PedidoApplication.ConfirmarPagamentoAsync(idPagamento);
+
+                return Ok();
+            }
+            catch (PagamentoNaoEncontradoException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (ConfirmarPagamentoException ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
+            catch (AcompanhamentoNaoEncontradoException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            //catch
+            //{
+            //    return StatusCode(StatusCodes.Status500InternalServerError, "Erro ao processar a requisição, tente novamente mais tarde.");
+            //}
+
         }
     }
 }
