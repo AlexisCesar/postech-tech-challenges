@@ -5,7 +5,7 @@ namespace ControleDePedidos.Application.Extensions
 {
     static internal class PedidoDtoExtensions
     {
-        static internal PedidoAggregate ToPedidoAggregate(this PedidoDto pedidoDto, ClienteAggregate? cliente, List<ProdutoAggregate> produtos)
+        static internal PedidoAggregate ToPedidoAggregate(this CriaPedidoDto pedidoDto, ClienteAggregate? cliente, List<ProdutoAggregate> produtos)
         {
             if (pedidoDto == null)
             {

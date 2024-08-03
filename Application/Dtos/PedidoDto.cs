@@ -1,16 +1,15 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace ControleDePedidos.Application.Dtos
+﻿namespace ControleDePedidos.Application.Dtos
 {
     public class PedidoDto
     {
-        [RegularExpression(
-            "^([0-9]){3}\\.([0-9]){3}\\.([0-9]){3}-([0-9]){2}$",
-            ErrorMessage = "CPF Inválido. Utilize este padrão: 000.000.000-00"
-        )]
+        public Guid IdPedido { get; set; }
+        public Guid IdPagamento { get; set; }
+        public bool Pago { get; set; } 
         public string? CpfCliente { get; set; }
-
-        [Required]
-        public List<ItemPedidoDto> Itens { get; set; }
+        public string? NomeCliente { get; set; }
+        public string StatusPedido { get; set; }
+        public short CodigoAcompanhamento { get; set; }       
+        public double ValorTotal { get; set; }
+        public List<ItemPedidoDto> Itens { get; set; } = new List<ItemPedidoDto>();
     }
 }

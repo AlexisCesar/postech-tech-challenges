@@ -9,5 +9,9 @@ namespace ControleDePedidos.Application.Ports
         Task<bool> SaveAcompanhamentoAsync(AcompanhamentoAggregate acompanhamento);
         Task<bool> SavePedidoAndAcompanhamentoAsync(PedidoAggregate pedido, AcompanhamentoAggregate acompanhamento, PagamentoAggregate pagamento);
         Task <PedidoAggregate?> GetPedidoById (Guid idPedido);
+        Task<List<AcompanhamentoAggregate>> GetAllPedidosNaoFinalizadosAsync();
+        Task<List<AcompanhamentoAggregate>> GetAllPedidosRecebidosAsync();
+        Task<List<AcompanhamentoAggregate>> GetAllPedidosEmPreparacaoAsync();
+        Task<bool> SavePagamentoAsync(PagamentoAggregate pagamento);     
     }
 }

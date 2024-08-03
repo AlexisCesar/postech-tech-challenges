@@ -21,7 +21,7 @@ namespace ControleDePedidos.API.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> RealizaPedido([FromBody] PedidoDto pedidoDto)
+        public async Task<IActionResult> RealizaPedido([FromBody] CriaPedidoDto pedidoDto)
         {
             if(pedidoDto == null) return BadRequest("Pedido nao pode ser nulo.");
 
@@ -109,6 +109,93 @@ namespace ControleDePedidos.API.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, "Erro ao processar a requisição, tente novamente mais tarde.");
             }
 
+        }
+
+        [HttpPost("{idPedido}/status/finalizado")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> FinalizaPedido([FromRoute] Guid idPedido)
+        {
+            if (idPedido == Guid.Empty) return BadRequest("O id do pagamento nao pode ser nulo.");
+
+            try
+            {
+                await PedidoApplication.FinalizaPedidoAsync(idPedido);
+
+                return Ok();
+            }
+            catch (PedidoNaoEncontradoException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (AcompanhamentoNaoEncontradoException ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
+            catch (OperacaoInvalidaException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (AtualizarStatusException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Erro ao processar a requisição, tente novamente mais tarde.");
+            }
+        }
+
+        [HttpGet("todos")]
+        [ProducesResponseType(StatusCodes.Status200OK)]       
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> GetAllPedidos()
+        {
+            try
+            {
+                var pedidos = await PedidoApplication.GetAllPedidosAsync();
+
+                return Ok(pedidos);
+            }         
+            catch
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Erro ao processar a requisição, tente novamente mais tarde.");
+            }
+        }
+
+        [HttpGet("recebidos")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> GetAllPedidosWithStatusRecebido()
+        {
+            try
+            {
+                var pedidos = await PedidoApplication.GetAllPedidosWithStatusRecebidoAsync();
+
+                return Ok(pedidos);
+            }
+            catch
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Erro ao processar a requisição, tente novamente mais tarde.");
+            }
+        }
+
+        [HttpGet("emPreparacao")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> GetAllPedidosWithStatusEmPreparacao()
+        {
+            try
+            {
+                var pedidos = await PedidoApplication.GetAllPedidosWithStatusEmPreparacaoAsync();
+
+                return Ok(pedidos);
+            }
+            catch
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Erro ao processar a requisição, tente novamente mais tarde.");
+            }
         }
     }
 }

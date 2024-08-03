@@ -23,7 +23,7 @@ namespace ControleDePedidos.Application
             ProdutoPersistencePort = produtoPersistencePort;
         }
 
-        public async Task<PedidoRealizadoDto> RealizarPedido(PedidoDto pedidoDto)
+        public async Task<PedidoRealizadoDto> RealizarPedido(CriaPedidoDto pedidoDto)
         {
             var cliente = await ClientePersistencePort.GetClienteByCPF(pedidoDto.CpfCliente ?? "");
 
@@ -71,6 +71,11 @@ namespace ControleDePedidos.Application
             if (acompanhamento == null) throw new AcompanhamentoNaoEncontradoException("Nao foi encontrado acompanhamento para esse pedido.");
 
             acompanhamento.Status = Status.Preparacao;
+            pagamento.Pago= true;
+
+            var pagamentoAtualizado = await PedidoPersistencePort.SavePagamentoAsync(pagamento);
+
+            if (!pagamentoAtualizado) throw new ConfirmarPagamentoException("Nao foi possivel atualizar o status do pagamento.");
 
             var acompanhamentoAtualizado = await PedidoPersistencePort.SaveAcompanhamentoAsync(acompanhamento);
 
@@ -89,12 +94,55 @@ namespace ControleDePedidos.Application
 
             if(acompanhamento.Status != Status.Preparacao) throw new OperacaoInvalidaException("Status do pedido precisa estar em preparação para ser atualizado como pronto.");
 
-            acompanhamento.Status = Status.Pronto;
+            acompanhamento.Status = Status.Finalizado;
 
             var acompanhamentoAtualizado = await PedidoPersistencePort.SaveAcompanhamentoAsync(acompanhamento);
 
             if (!acompanhamentoAtualizado) throw new AtualizarStatusException("Nao foi possivel atualizar o status do pedido.");
 
+        }
+
+        public async Task FinalizaPedidoAsync(Guid idPedido)
+        {
+            var pedido = await PedidoPersistencePort.GetPedidoById(idPedido);
+
+            if (pedido == null) throw new PedidoNaoEncontradoException("Pedido nao encontrado");
+
+            var acompanhamento = await PedidoPersistencePort.GetAcompanhamentoByPedidoIdAsync(pedido.Id);
+
+            if (acompanhamento == null) throw new AcompanhamentoNaoEncontradoException("Nao foi encontrado acompanhamento para esse pedido.");
+
+            if (acompanhamento.Status != Status.Pronto) throw new OperacaoInvalidaException("Status do pedido precisa estar como recebido para que o pedido possa ser finalizado.");
+
+            acompanhamento.Status = Status.Finalizado;
+
+            var acompanhamentoAtualizado = await PedidoPersistencePort.SaveAcompanhamentoAsync(acompanhamento);
+
+            if (!acompanhamentoAtualizado) throw new AtualizarStatusException("Nao foi possivel atualizar o status do pedido.");
+        }
+
+        public async Task<List<PedidoDto>> GetAllPedidosAsync()
+        {
+            var acompanhamentos = await PedidoPersistencePort.GetAllPedidosNaoFinalizadosAsync();
+            var acompanhamentosDto = acompanhamentos.Select(x => x.ToPedidoDto()).ToList();          
+
+            return acompanhamentosDto;
+        }
+
+        public async Task<List<PedidoDto>> GetAllPedidosWithStatusRecebidoAsync()
+        {
+            var acompanhamentos = await PedidoPersistencePort.GetAllPedidosRecebidosAsync();
+            var acompanhamentosDto = acompanhamentos.Select(x => x.ToPedidoDto()).ToList();
+
+            return acompanhamentosDto;
+        }
+
+        public async Task<List<PedidoDto>> GetAllPedidosWithStatusEmPreparacaoAsync()
+        {
+            var acompanhamentos = await PedidoPersistencePort.GetAllPedidosEmPreparacaoAsync();
+            var acompanhamentosDto = acompanhamentos.Select(x => x.ToPedidoDto()).ToList();
+
+            return acompanhamentosDto;
         }
     }
 }

@@ -6,6 +6,10 @@ namespace ControleDePedidos.Application.Interfaces
     {
         Task AtualizaStatusComoProntoAsync(Guid idPedido);
         Task ConfirmarPagamentoAsync(Guid idPagamento);
-        Task<PedidoRealizadoDto> RealizarPedido(PedidoDto pedidoDto);
+        Task<PedidoRealizadoDto> RealizarPedido(CriaPedidoDto pedidoDto);
+        Task FinalizaPedidoAsync(Guid idPedido);
+        Task<List<PedidoDto>> GetAllPedidosAsync();
+        Task<List<PedidoDto>> GetAllPedidosWithStatusRecebidoAsync();
+        Task<List<PedidoDto>> GetAllPedidosWithStatusEmPreparacaoAsync();
     }
 }
