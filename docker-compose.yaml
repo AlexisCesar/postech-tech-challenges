@@ -5,8 +5,6 @@ services:
     image: mysql
     restart: always
     container_name: lanchonetedobairro_db
-    ports:
-      - '3306:3306'
     volumes:
       - lanchonetedobairro:/var/lib/mysql
     environment:

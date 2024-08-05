@@ -2,7 +2,7 @@
 
 namespace ControleDePedidos.Dominio.Entidades
 {
-    public class ProdutoAggregate : Entity, IAggregateRoot
+    public class ProdutoAggregate : Entity<int>, IAggregateRoot
     {
         public string Nome { get; set; }
         public double Preco { get; set; }

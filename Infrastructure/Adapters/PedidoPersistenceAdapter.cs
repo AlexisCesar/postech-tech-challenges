@@ -15,48 +15,52 @@ namespace ControleDePedidos.Infrastructure.Adapters
             Context = context;
         }
 
-        public async Task<AcompanhamentoAggregate?> GetAcompanhamentoByPedidoIdAsync(Guid idPedido)
+        public async Task<List<PedidoAggregate>> GetAllPedidosEmPreparacaoAsync()
         {
-            var acompanhamento = await Context.Acompanhamento.Include(x => x.Pedido).FirstOrDefaultAsync(x => x.Pedido.Id == idPedido);
-
-            return acompanhamento;
-        }
-
-        public async Task<List<AcompanhamentoAggregate>> GetAllPedidosEmPreparacaoAsync()
-        {
-            return await Context.Acompanhamento
-                       .Include(x => x.Pedido).ThenInclude(p => p.Itens).ThenInclude(p => p.Produto)
-                       .Where(x => x.Status == Status.Preparacao)
+            return await Context.Pedido
+                       .Include(x => x.Cliente)
+                       .Include(x => x.Acompanhamento)
+                       .Include(x => x.Pagamento)
+                       .Include(p => p.Itens)
+                       .ThenInclude(p => p.Produto)
+                       .Where(x => x.Acompanhamento.Status == Status.Preparacao)
                        .ToListAsync();
         }
 
-        public async Task<List<AcompanhamentoAggregate>> GetAllPedidosNaoFinalizadosAsync()
+        public async Task<List<PedidoAggregate>> GetAllPedidosNaoFinalizadosAsync()
         {
-            return await Context.Acompanhamento                
-                        .Include(x => x.Pedido).ThenInclude(p => p.Itens).ThenInclude(p => p.Produto)
-                        .Where(x => x.Status != Status.Finalizado)
-                        .ToListAsync();
-
+            return await Context.Pedido
+                       .Include(x => x.Cliente)
+                       .Include(x => x.Acompanhamento)
+                       .Include(x => x.Pagamento)
+                       .Include(p => p.Itens)
+                       .ThenInclude(p => p.Produto)
+                       .Where(x => x.Acompanhamento.Status != Status.Finalizado)
+                       .ToListAsync();
         }
 
-        public async Task<List<AcompanhamentoAggregate>> GetAllPedidosRecebidosAsync()
+        public async Task<List<PedidoAggregate>> GetAllPedidosRecebidosAsync()
         {
-            return await Context.Acompanhamento
-                        .Include(x => x.Pedido).ThenInclude(p => p.Itens).ThenInclude(p => p.Produto)                      
-                        .Where(x => x.Status == Status.Recebido)
-                        .ToListAsync();
+            return await Context.Pedido
+                       .Include(x => x.Cliente)
+                       .Include(x => x.Acompanhamento)
+                       .Include(x => x.Pagamento)
+                       .Include(p => p.Itens)
+                       .ThenInclude(p => p.Produto)
+                       .Where(x => x.Acompanhamento.Status == Status.Recebido)
+                       .ToListAsync();
         }
-     
-        public async Task<PagamentoAggregate?> GetPagamentoByIdAsync(Guid idPagamento)
-        {
-            var pagamento = await Context.Pagamento.Include(x => x.Pedido).FirstOrDefaultAsync(x => x.Id == idPagamento);
-
-            return pagamento;
-        }  
 
         public async Task<PedidoAggregate?> GetPedidoById(Guid idPedido)
         {
-            var pedido = await Context.Pedido.FirstOrDefaultAsync(x => x.Id == idPedido);
+            var pedido = 
+                await Context.Pedido
+                        .Include(x => x.Cliente)
+                        .Include(x => x.Acompanhamento)
+                        .Include(x => x.Pagamento)
+                        .Include(p => p.Itens)
+                        .ThenInclude(p => p.Produto)
+                        .FirstOrDefaultAsync(x => x.Id == idPedido);
 
             return pedido;
         }
@@ -78,11 +82,9 @@ namespace ControleDePedidos.Infrastructure.Adapters
             return result > 0;
         }
 
-        public async Task<bool> SavePedidoAndAcompanhamentoAsync(PedidoAggregate pedido, AcompanhamentoAggregate acompanhamento, PagamentoAggregate pagamento)
+        public async Task<bool> SavePedidoAsync(PedidoAggregate pedido)
         {
             await Context.Pedido.AddAsync(pedido);
-            await Context.Acompanhamento.AddAsync(acompanhamento);
-            await Context.Pagamento.AddAsync(pagamento);
 
             var result = await Context.SaveChangesAsync();
 
@@ -90,3 +92,4 @@ namespace ControleDePedidos.Infrastructure.Adapters
         }
     }
 }
+ 

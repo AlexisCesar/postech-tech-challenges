@@ -5,7 +5,7 @@ namespace ControleDePedidos.Application.Dtos
     public class ItemPedidoDto
     {
         [Required]
-        public Guid IdProduto { get; set; }
+        public int IdProduto { get; set; }
         [Required]
         [Range(1, 200, ErrorMessage = "A quantidade deve ser maior do que 0 e menor ou igual a 200.")]
         public short Quantidade { get; set; }

@@ -11,7 +11,7 @@ namespace ControleDePedidos.Application.Dtos
             MinimumLength = 1,
             ErrorMessage = "O nome deve ter entre 1 e 20 caracteres."
         )]
-        public string Nome { get; set; }
+        public required string Nome { get; set; }
 
         [Required]
         [Range(0.01, 100.00, ErrorMessage = "O preço deve estar entre 0.01 e 100.00.")]

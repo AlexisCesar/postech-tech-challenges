@@ -37,7 +37,7 @@ namespace ControleDePedidos.Infrastructure.Adapters
             return await Context.Produto.Where(x => x.Categoria == categoria).ToListAsync();
         }
 
-        public async Task<ProdutoAggregate?> GetProdutoByIdAsync(Guid id)
+        public async Task<ProdutoAggregate?> GetProdutoByIdAsync(int id)
         {
             return await Context.Produto.FirstOrDefaultAsync(x => x.Id == id);
         }
@@ -54,7 +54,7 @@ namespace ControleDePedidos.Infrastructure.Adapters
             return await Context.SaveChangesAsync() > 0;
         }
 
-        public async Task<List<ProdutoAggregate>> GetProdutosByIdsAsync(IEnumerable<Guid> ids)
+        public async Task<List<ProdutoAggregate>> GetProdutosByIdsAsync(IEnumerable<int> ids)
         {
             return await Context.Produto.Where(x => ids.Contains(x.Id)).ToListAsync();
         }

@@ -7,11 +7,11 @@ namespace ControleDePedidos.Application.Ports
     {
         public Task<bool> SaveProdutoAsync(ProdutoAggregate produtoAggregate);
         Task<ProdutoAggregate?> GetProdutoByNomeAsync(string nome);
-        Task<ProdutoAggregate?> GetProdutoByIdAsync(Guid id);
+        Task<ProdutoAggregate?> GetProdutoByIdAsync(int id);
         Task<IEnumerable<ProdutoAggregate>> GetProdutosAsync();
         Task<IEnumerable<ProdutoAggregate>> GetProdutosByCategoriaAsync(Categoria categoria);
         bool RemoveProduto(ProdutoAggregate produtoAggregate);
         Task<bool> UpdateProdutoAsync(ProdutoAggregate produtoCadastrado);
-        Task<List<ProdutoAggregate>> GetProdutosByIdsAsync(IEnumerable<Guid> ids);
+        Task<List<ProdutoAggregate>> GetProdutosByIdsAsync(IEnumerable<int> ids);
     }
 }

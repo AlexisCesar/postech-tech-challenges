@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ControleDePedidos.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20240801023018_Initial create")]
-    partial class Initialcreate
+    [Migration("20240805215949_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -34,15 +34,10 @@ namespace ControleDePedidos.Infrastructure.Migrations
                     b.Property<short>("CodigoAcompanhamento")
                         .HasColumnType("smallint");
 
-                    b.Property<Guid>("PedidoId")
-                        .HasColumnType("char(36)");
-
                     b.Property<int>("Status")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("PedidoId");
 
                     b.ToTable("Acompanhamento");
                 });
@@ -76,8 +71,8 @@ namespace ControleDePedidos.Infrastructure.Migrations
                     b.Property<Guid?>("PedidoAggregateId")
                         .HasColumnType("char(36)");
 
-                    b.Property<Guid>("ProdutoId")
-                        .HasColumnType("char(36)");
+                    b.Property<int>("ProdutoId")
+                        .HasColumnType("int");
 
                     b.Property<short>("Quantidade")
                         .HasColumnType("smallint");
@@ -97,12 +92,10 @@ namespace ControleDePedidos.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("char(36)");
 
-                    b.Property<Guid>("PedidoId")
-                        .HasColumnType("char(36)");
+                    b.Property<bool>("Pago")
+                        .HasColumnType("tinyint(1)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("PedidoId");
 
                     b.ToTable("Pagamento");
                 });
@@ -113,21 +106,33 @@ namespace ControleDePedidos.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("char(36)");
 
+                    b.Property<Guid>("AcompanhamentoId")
+                        .HasColumnType("char(36)");
+
                     b.Property<Guid?>("ClienteId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<Guid>("PagamentoId")
                         .HasColumnType("char(36)");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("AcompanhamentoId");
+
                     b.HasIndex("ClienteId");
+
+                    b.HasIndex("PagamentoId");
 
                     b.ToTable("Pedido");
                 });
 
             modelBuilder.Entity("ControleDePedidos.Dominio.Entidades.ProdutoAggregate", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("char(36)");
+                        .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("Categoria")
                         .HasColumnType("int");
@@ -142,17 +147,6 @@ namespace ControleDePedidos.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Produto");
-                });
-
-            modelBuilder.Entity("ControleDePedidos.Dominio.Entidades.AcompanhamentoAggregate", b =>
-                {
-                    b.HasOne("ControleDePedidos.Dominio.Entidades.PedidoAggregate", "Pedido")
-                        .WithMany()
-                        .HasForeignKey("PedidoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Pedido");
                 });
 
             modelBuilder.Entity("ControleDePedidos.Dominio.Entidades.ClienteAggregate", b =>
@@ -193,24 +187,29 @@ namespace ControleDePedidos.Infrastructure.Migrations
                     b.Navigation("Produto");
                 });
 
-            modelBuilder.Entity("ControleDePedidos.Dominio.Entidades.PagamentoAggregate", b =>
+            modelBuilder.Entity("ControleDePedidos.Dominio.Entidades.PedidoAggregate", b =>
                 {
-                    b.HasOne("ControleDePedidos.Dominio.Entidades.PedidoAggregate", "Pedido")
+                    b.HasOne("ControleDePedidos.Dominio.Entidades.AcompanhamentoAggregate", "Acompanhamento")
                         .WithMany()
-                        .HasForeignKey("PedidoId")
+                        .HasForeignKey("AcompanhamentoId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Pedido");
-                });
-
-            modelBuilder.Entity("ControleDePedidos.Dominio.Entidades.PedidoAggregate", b =>
-                {
                     b.HasOne("ControleDePedidos.Dominio.Entidades.ClienteAggregate", "Cliente")
                         .WithMany()
                         .HasForeignKey("ClienteId");
 
+                    b.HasOne("ControleDePedidos.Dominio.Entidades.PagamentoAggregate", "Pagamento")
+                        .WithMany()
+                        .HasForeignKey("PagamentoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Acompanhamento");
+
                     b.Navigation("Cliente");
+
+                    b.Navigation("Pagamento");
                 });
 
             modelBuilder.Entity("ControleDePedidos.Dominio.Entidades.PedidoAggregate", b =>

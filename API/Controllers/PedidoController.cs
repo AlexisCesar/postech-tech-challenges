@@ -41,17 +41,17 @@ namespace ControleDePedidos.API.Controllers
             }
         }
 
-        [HttpPost("pagamento/confirmar/{idPagamento}")]
+        [HttpPost("{idPedido}/confirmarPagamento")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> ConfirmaPagamento([FromRoute] Guid idPagamento)
+        public async Task<IActionResult> ConfirmaPagamento([FromRoute] Guid idPedido)
         {
-            if (idPagamento == Guid.Empty) return BadRequest("O id do pagamento nao pode ser nulo.");
+            if (idPedido == Guid.Empty) return BadRequest("O id do pagamento nao pode ser nulo.");
 
             try
             {
-                await PedidoApplication.ConfirmarPagamentoAsync(idPagamento);
+                await PedidoApplication.ConfirmarPagamentoAsync(idPedido);
 
                 return Ok();
             }
@@ -74,7 +74,7 @@ namespace ControleDePedidos.API.Controllers
 
         }
 
-        [HttpPost("{idPedido}/status/pronto")]
+        [HttpPost("{idPedido}/declararPronto")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -111,7 +111,7 @@ namespace ControleDePedidos.API.Controllers
 
         }
 
-        [HttpPost("{idPedido}/status/finalizado")]
+        [HttpPost("{idPedido}/finalizar")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]

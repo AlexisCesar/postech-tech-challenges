@@ -2,9 +2,9 @@
 {
     public class ProdutoDto
     {
-        public Guid Id { get; set; }
-        public string Nome { get; set; }
-        public string Categoria { get; set; }
+        public int Id { get; set; }
+        public string Nome { get; set; } = "";
+        public string Categoria { get; set; } = "";
         public double Preco {  get; set; }
     }
 }

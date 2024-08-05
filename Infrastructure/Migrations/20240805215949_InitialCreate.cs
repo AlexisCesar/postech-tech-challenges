@@ -1,4 +1,5 @@
 ﻿using System;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
@@ -6,12 +7,26 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace ControleDePedidos.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class Initialcreate : Migration
+    public partial class InitialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AlterDatabase()
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "Acompanhamento",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    CodigoAcompanhamento = table.Column<short>(type: "smallint", nullable: false),
+                    Status = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Acompanhamento", x => x.Id);
+                })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
@@ -33,10 +48,24 @@ namespace ControleDePedidos.Infrastructure.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "Produto",
+                name: "Pagamento",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    Pago = table.Column<bool>(type: "tinyint(1)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Pagamento", x => x.Id);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "Produto",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     Nome = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Preco = table.Column<double>(type: "double", nullable: false),
@@ -53,35 +82,28 @@ namespace ControleDePedidos.Infrastructure.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
-                    ClienteId = table.Column<Guid>(type: "char(36)", nullable: true, collation: "ascii_general_ci")
+                    ClienteId = table.Column<Guid>(type: "char(36)", nullable: true, collation: "ascii_general_ci"),
+                    PagamentoId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    AcompanhamentoId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci")
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Pedido", x => x.Id);
                     table.ForeignKey(
+                        name: "FK_Pedido_Acompanhamento_AcompanhamentoId",
+                        column: x => x.AcompanhamentoId,
+                        principalTable: "Acompanhamento",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
                         name: "FK_Pedido_Cliente_ClienteId",
                         column: x => x.ClienteId,
                         principalTable: "Cliente",
                         principalColumn: "Id");
-                })
-                .Annotation("MySql:CharSet", "utf8mb4");
-
-            migrationBuilder.CreateTable(
-                name: "Acompanhamento",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
-                    CodigoAcompanhamento = table.Column<short>(type: "smallint", nullable: false),
-                    PedidoId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
-                    Status = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Acompanhamento", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Acompanhamento_Pedido_PedidoId",
-                        column: x => x.PedidoId,
-                        principalTable: "Pedido",
+                        name: "FK_Pedido_Pagamento_PagamentoId",
+                        column: x => x.PagamentoId,
+                        principalTable: "Pagamento",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 })
@@ -92,7 +114,7 @@ namespace ControleDePedidos.Infrastructure.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
-                    ProdutoId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    ProdutoId = table.Column<int>(type: "int", nullable: false),
                     Quantidade = table.Column<short>(type: "smallint", nullable: false),
                     Customizacao = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
@@ -115,30 +137,6 @@ namespace ControleDePedidos.Infrastructure.Migrations
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
-            migrationBuilder.CreateTable(
-                name: "Pagamento",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
-                    PedidoId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci")
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Pagamento", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Pagamento_Pedido_PedidoId",
-                        column: x => x.PedidoId,
-                        principalTable: "Pedido",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                })
-                .Annotation("MySql:CharSet", "utf8mb4");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Acompanhamento_PedidoId",
-                table: "Acompanhamento",
-                column: "PedidoId");
-
             migrationBuilder.CreateIndex(
                 name: "IX_ItemPedido_PedidoAggregateId",
                 table: "ItemPedido",
@@ -150,36 +148,41 @@ namespace ControleDePedidos.Infrastructure.Migrations
                 column: "ProdutoId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Pagamento_PedidoId",
-                table: "Pagamento",
-                column: "PedidoId");
+                name: "IX_Pedido_AcompanhamentoId",
+                table: "Pedido",
+                column: "AcompanhamentoId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Pedido_ClienteId",
                 table: "Pedido",
                 column: "ClienteId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Pedido_PagamentoId",
+                table: "Pedido",
+                column: "PagamentoId");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Acompanhamento");
-
-            migrationBuilder.DropTable(
                 name: "ItemPedido");
-
-            migrationBuilder.DropTable(
-                name: "Pagamento");
-
-            migrationBuilder.DropTable(
-                name: "Produto");
 
             migrationBuilder.DropTable(
                 name: "Pedido");
 
             migrationBuilder.DropTable(
+                name: "Produto");
+
+            migrationBuilder.DropTable(
+                name: "Acompanhamento");
+
+            migrationBuilder.DropTable(
                 name: "Cliente");
+
+            migrationBuilder.DropTable(
+                name: "Pagamento");
         }
     }
 }

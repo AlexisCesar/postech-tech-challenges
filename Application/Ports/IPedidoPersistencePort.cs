@@ -4,14 +4,12 @@ namespace ControleDePedidos.Application.Ports
 {
     public interface IPedidoPersistencePort
     {
-        Task<AcompanhamentoAggregate?> GetAcompanhamentoByPedidoIdAsync(Guid idPedido);
-        Task<PagamentoAggregate?> GetPagamentoByIdAsync(Guid idPagamento);
         Task<bool> SaveAcompanhamentoAsync(AcompanhamentoAggregate acompanhamento);
-        Task<bool> SavePedidoAndAcompanhamentoAsync(PedidoAggregate pedido, AcompanhamentoAggregate acompanhamento, PagamentoAggregate pagamento);
+        Task<bool> SavePedidoAsync(PedidoAggregate pedido);
         Task <PedidoAggregate?> GetPedidoById (Guid idPedido);
-        Task<List<AcompanhamentoAggregate>> GetAllPedidosNaoFinalizadosAsync();
-        Task<List<AcompanhamentoAggregate>> GetAllPedidosRecebidosAsync();
-        Task<List<AcompanhamentoAggregate>> GetAllPedidosEmPreparacaoAsync();
+        Task<List<PedidoAggregate>> GetAllPedidosNaoFinalizadosAsync();
+        Task<List<PedidoAggregate>> GetAllPedidosRecebidosAsync();
+        Task<List<PedidoAggregate>> GetAllPedidosEmPreparacaoAsync();
         Task<bool> SavePagamentoAsync(PagamentoAggregate pagamento);     
     }
 }

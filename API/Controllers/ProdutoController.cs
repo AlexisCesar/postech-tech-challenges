@@ -65,7 +65,7 @@ namespace ControleDePedidos.API.Controllers
         }
 
         [HttpGet]
-        [Route("todos/{categoria}")]
+        [Route("categoria/{categoria}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -94,11 +94,11 @@ namespace ControleDePedidos.API.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> RemoveProduto([FromRoute] Guid id)
+        public async Task<IActionResult> RemoveProduto([FromRoute] int id)
         {
             try
             {
-                if (id == Guid.Empty) return BadRequest("Id nao pode ser nulo.");
+                if (id <= 0) return BadRequest("Id nao pode ser menor ou igual a zero.");
 
                 await ProdutoApplication.RemoveProdutoAsync(id);
 
@@ -124,11 +124,11 @@ namespace ControleDePedidos.API.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> AtualizarProduto([FromRoute] Guid id, [FromBody] AtualizaProdutoDto produto)
+        public async Task<IActionResult> AtualizarProduto([FromRoute] int id, [FromBody] AtualizaProdutoDto produto)
         {
             try
             {
-                if (id == Guid.Empty) return BadRequest("Id nao pode ser nulo.");
+                if (id <= 0) return BadRequest("Id nao pode ser menor ou igual a zero.");
 
                 var produtoAtualizado = await ProdutoApplication.AtualizaProdutoAsync(id, produto);
 

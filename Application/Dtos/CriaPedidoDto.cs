@@ -11,6 +11,6 @@ namespace ControleDePedidos.Application.Dtos
         public string? CpfCliente { get; set; }
 
         [Required]
-        public List<ItemPedidoDto> Itens { get; set; }
+        public required List<ItemPedidoDto> Itens { get; set; }
     }
 }

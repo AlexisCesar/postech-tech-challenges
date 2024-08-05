@@ -5,10 +5,10 @@ namespace ControleDePedidos.Application.Interfaces
 {
     public interface IProdutoApplication
     {
-        Task<ProdutoDto> AtualizaProdutoAsync(Guid id, AtualizaProdutoDto produto);
+        Task<ProdutoDto> AtualizaProdutoAsync(int id, AtualizaProdutoDto produto);
         Task<IEnumerable<ProdutoDto>> BuscaProdutosAsync();
         Task<IEnumerable<ProdutoDto>> BuscaProdutosAsync(Categoria nomeCategoria);
         Task CadastraProdutoAsync(CadastraProdutoDto cadastraProdutoDto);
-        Task RemoveProdutoAsync(Guid id);
+        Task RemoveProdutoAsync(int id);
     }
 }
