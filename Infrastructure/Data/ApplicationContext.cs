@@ -33,8 +33,14 @@ namespace ControleDePedidos.Infrastructure.Data
                 });
             });
 
+            modelBuilder.HasSequence<int>("Seq_CodAcompanhamento")
+                .StartsAt(10)
+                .IncrementsBy(1);
+
             modelBuilder.Entity<AcompanhamentoAggregate>(Entity => {
                 Entity.HasKey(e => e.Id);
+                Entity.Property(e => e.CodigoAcompanhamento)
+                    .HasDefaultValueSql("nextval('\"Seq_CodAcompanhamento\"')");
             });
 
             modelBuilder.Entity<ItemPedido>(Entity => Entity.HasKey(e => e.Id));

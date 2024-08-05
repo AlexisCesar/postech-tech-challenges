@@ -22,6 +22,9 @@ namespace ControleDePedidos.Infrastructure.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
+            modelBuilder.HasSequence<int>("Seq_CodAcompanhamento")
+                .StartsAt(10L);
+
             modelBuilder.Entity("ControleDePedidos.Dominio.Entidades.AcompanhamentoAggregate", b =>
                 {
                     b.Property<Guid>("Id")
@@ -29,7 +32,9 @@ namespace ControleDePedidos.Infrastructure.Migrations
                         .HasColumnType("uuid");
 
                     b.Property<short>("CodigoAcompanhamento")
-                        .HasColumnType("smallint");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("smallint")
+                        .HasDefaultValueSql("nextval('\"Seq_CodAcompanhamento\"')");
 
                     b.Property<int>("Status")
                         .HasColumnType("integer");

@@ -38,7 +38,6 @@ namespace ControleDePedidos.Application
 
             pedido.Acompanhamento = new AcompanhamentoAggregate()
             {
-                CodigoAcompanhamento = 999,
                 Status = Status.Recebido
             };
 

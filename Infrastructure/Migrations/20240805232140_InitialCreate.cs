@@ -12,12 +12,16 @@ namespace ControleDePedidos.Infrastructure.Migrations
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateSequence<int>(
+                name: "Seq_CodAcompanhamento",
+                startValue: 10L);
+
             migrationBuilder.CreateTable(
                 name: "Acompanhamento",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    CodigoAcompanhamento = table.Column<short>(type: "smallint", nullable: false),
+                    CodigoAcompanhamento = table.Column<short>(type: "smallint", nullable: false, defaultValueSql: "nextval('\"Seq_CodAcompanhamento\"')"),
                     Status = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
@@ -169,6 +173,9 @@ namespace ControleDePedidos.Infrastructure.Migrations
 
             migrationBuilder.DropTable(
                 name: "Pagamento");
+
+            migrationBuilder.DropSequence(
+                name: "Seq_CodAcompanhamento");
         }
     }
 }
