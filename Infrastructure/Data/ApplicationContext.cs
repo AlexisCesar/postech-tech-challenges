@@ -9,8 +9,8 @@ namespace ControleDePedidos.Infrastructure.Data
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseMySql("Server=lanchonetedobairro_db;Database=controleDePedidos;User=root;Password=Posgraduation@109283;",
-                ServerVersion.AutoDetect("Server=lanchonetedobairro_db;Database=controleDePedidos;User=root;Password=Posgraduation@109283;"));
+            optionsBuilder.UseNpgsql("Host=lanchonetedobairro_db; Database=controleDePedidos; Username=postgres; Password=Posgraduation@109283;");
+
             base.OnConfiguring(optionsBuilder);
         }
 

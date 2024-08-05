@@ -2,17 +2,19 @@ version: '3.8'
 
 services:
   lanchonetedobairro_db:
-    image: mysql
+    image: postgres
     restart: always
     container_name: lanchonetedobairro_db
     volumes:
-      - lanchonetedobairro:/var/lib/mysql
+      - lanchonetedobairro_pgsql:/var/lib/mysql
     environment:
-      MYSQL_ROOT_PASSWORD: Posgraduation@109283
+      POSTGRES_PASSWORD: Posgraduation@109283
+    ports:
+      - "5432:5432"
     networks:
       - controledepedidos-network
     healthcheck:
-      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+      test: [ "CMD-SHELL", "pg_isready" ]
       timeout: 10s
       retries: 3
   lanchonetedobairro_api:
@@ -27,7 +29,7 @@ services:
     ports:
      - '7575:80'
 volumes:
-  lanchonetedobairro:  
+  lanchonetedobairro_pgsql:  
 
 networks:
   controledepedidos-network:
