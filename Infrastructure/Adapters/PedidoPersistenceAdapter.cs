@@ -15,7 +15,7 @@ namespace ControleDePedidos.Infrastructure.Adapters
             Context = context;
         }
 
-        public async Task<List<PedidoAggregate>> GetAllPedidosEmPreparacaoAsync()
+        public async Task<List<PedidoAggregate>> GetAllPedidosByStatusAsync(Status status)
         {
             return await Context.Pedido
                        .Include(x => x.Cliente)
@@ -23,44 +23,20 @@ namespace ControleDePedidos.Infrastructure.Adapters
                        .Include(x => x.Pagamento)
                        .Include(p => p.Itens)
                        .ThenInclude(p => p.Produto)
-                       .Where(x => x.Acompanhamento.Status == Status.Preparacao)
+                       .Where(x => x.Acompanhamento.Status == status)
                        .ToListAsync();
         }
 
         public async Task<List<PedidoAggregate>> GetAllPedidosNaoFinalizadosAsync()
-        {
+        {          
             return await Context.Pedido
-                       .Include(x => x.Cliente)
-                       .Include(x => x.Acompanhamento)
-                       .Include(x => x.Pagamento)
-                       .Include(p => p.Itens)
-                       .ThenInclude(p => p.Produto)
-                       .Where(x => x.Acompanhamento.Status != Status.Finalizado)
-                       .ToListAsync();
-        }
-
-        public async Task<List<PedidoAggregate>> GetAllPedidosProntoAsync()
-        {
-            return await Context.Pedido
-                      .Include(x => x.Cliente)
-                      .Include(x => x.Acompanhamento)
-                      .Include(x => x.Pagamento)
-                      .Include(p => p.Itens)
-                      .ThenInclude(p => p.Produto)
-                      .Where(x => x.Acompanhamento.Status == Status.Pronto)
-                      .ToListAsync();
-        }
-
-        public async Task<List<PedidoAggregate>> GetAllPedidosRecebidosAsync()
-        {
-            return await Context.Pedido
-                       .Include(x => x.Cliente)
-                       .Include(x => x.Acompanhamento)
-                       .Include(x => x.Pagamento)
-                       .Include(p => p.Itens)
-                       .ThenInclude(p => p.Produto)
-                       .Where(x => x.Acompanhamento.Status == Status.Recebido)
-                       .ToListAsync();
+                        .Include(x => x.Cliente)
+                        .Include(x => x.Acompanhamento)
+                        .Include(x => x.Pagamento)
+                        .Include(p => p.Itens)
+                        .ThenInclude(p => p.Produto)
+                        .Where(x => x.Acompanhamento.Status != Status.Finalizado)
+                        .ToListAsync();
         }
 
         public async Task<PedidoAggregate?> GetPedidoById(Guid idPedido)

@@ -1,4 +1,4 @@
-﻿namespace ControleDePedidos.Application.Exceptions
+﻿namespace ControleDePedidos.Application.Exceptions.Pagamento
 {
     [Serializable]
     public class ConfirmarPagamentoException : Exception

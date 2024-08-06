@@ -1,5 +1,6 @@
 ﻿using ControleDePedidos.Application.Dtos;
-using ControleDePedidos.Application.Exceptions;
+using ControleDePedidos.Application.Exceptions.Cliente;
+using ControleDePedidos.Application.Exceptions.Produto;
 using ControleDePedidos.Application.Extensions;
 using ControleDePedidos.Application.Interfaces;
 using ControleDePedidos.Application.Ports;

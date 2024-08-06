@@ -1,5 +1,5 @@
 ﻿using ControleDePedidos.Application.Dtos;
-using ControleDePedidos.Application.Exceptions;
+using ControleDePedidos.Application.Exceptions.Produto;
 using ControleDePedidos.Application.Extensions;
 using ControleDePedidos.Application.Interfaces;
 using ControleDePedidos.Application.Ports;
@@ -54,13 +54,6 @@ namespace ControleDePedidos.Application
             if (!produtoRemovido) throw new RemoveProdutoException("Ocorreu um erro ao remover o produto.");
         }
 
-        private async Task<bool> VerificarProdutoJaCadastrado(string nome)
-        {
-            var produto = await ProdutoPersistancePort.GetProdutoByNomeAsync(nome);
-
-            return produto != null;
-        }
-
         public async Task<ProdutoDto> AtualizaProdutoAsync(int id, AtualizaProdutoDto produto)
         {
             var produtoCadastrado = await ProdutoPersistancePort.GetProdutoByIdAsync(id);
@@ -76,6 +69,13 @@ namespace ControleDePedidos.Application
             if (!produtoAtualizado) throw new AtualizaProdutoException("Ocorreu um erro ao atualizar o produto.");
 
             return produtoCadastrado.ToProdutoDto();
+        }
+
+        private async Task<bool> VerificarProdutoJaCadastrado(string nome)
+        {
+            var produto = await ProdutoPersistancePort.GetProdutoByNomeAsync(nome);
+
+            return produto != null;
         }
     }
 }

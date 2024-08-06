@@ -1,4 +1,5 @@
 ﻿using ControleDePedidos.Application.Dtos;
+using ControleDePedidos.Dominio.Entities.Enums;
 
 namespace ControleDePedidos.Application.Interfaces
 {
@@ -9,9 +10,6 @@ namespace ControleDePedidos.Application.Interfaces
         Task<PedidoRealizadoDto> RealizarPedido(CriaPedidoDto pedidoDto);
         Task FinalizaPedidoAsync(Guid idPedido);
         Task<List<PedidoDto>> GetAllPedidosAsync();
-        Task<List<PedidoDto>> GetAllPedidosWithStatusRecebidoAsync();
-        Task<List<PedidoDto>> GetAllPedidosWithStatusEmPreparacaoAsync();
-
-        Task<List<PedidoDto>> GetAllPedidosWithStatusProntoAsync();
+        Task<List<PedidoDto>> GetAllPedidosByStatusAsync(Status status);       
     }
 }

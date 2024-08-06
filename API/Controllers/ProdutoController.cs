@@ -1,5 +1,5 @@
 ﻿using ControleDePedidos.Application.Dtos;
-using ControleDePedidos.Application.Exceptions;
+using ControleDePedidos.Application.Exceptions.Produto;
 using ControleDePedidos.Application.Interfaces;
 using ControleDePedidos.Dominio.Entities.Enums;
 using Microsoft.AspNetCore.Mvc;

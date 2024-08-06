@@ -1,5 +1,5 @@
 using ControleDePedidos.Application.Dtos;
-using ControleDePedidos.Application.Exceptions;
+using ControleDePedidos.Application.Exceptions.Cliente;
 using ControleDePedidos.Application.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 

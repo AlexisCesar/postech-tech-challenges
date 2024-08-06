@@ -1,4 +1,4 @@
-﻿namespace ControleDePedidos.Application.Exceptions
+﻿namespace ControleDePedidos.Application.Exceptions.Pedido
 {
     [Serializable]
     public class PedidoNaoEncontradoException : Exception

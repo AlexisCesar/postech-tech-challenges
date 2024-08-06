@@ -1,6 +1,10 @@
 ﻿using ControleDePedidos.Application.Dtos;
-using ControleDePedidos.Application.Exceptions;
+using ControleDePedidos.Application.Exceptions.Acompanhamento;
+using ControleDePedidos.Application.Exceptions.Pagamento;
+using ControleDePedidos.Application.Exceptions.Pedido;
+using ControleDePedidos.Application.Exceptions.Produto;
 using ControleDePedidos.Application.Interfaces;
+using ControleDePedidos.Dominio.Entities.Enums;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ControleDePedidos.API.Controllers
@@ -171,7 +175,7 @@ namespace ControleDePedidos.API.Controllers
         {
             try
             {
-                var pedidos = await PedidoApplication.GetAllPedidosWithStatusRecebidoAsync();
+                var pedidos = await PedidoApplication.GetAllPedidosByStatusAsync(Status.Recebido);
 
                 return Ok(pedidos);
             }
@@ -188,7 +192,7 @@ namespace ControleDePedidos.API.Controllers
         {
             try
             {
-                var pedidos = await PedidoApplication.GetAllPedidosWithStatusEmPreparacaoAsync();
+                var pedidos = await PedidoApplication.GetAllPedidosByStatusAsync(Status.Preparacao);
 
                 return Ok(pedidos);
             }
@@ -205,7 +209,7 @@ namespace ControleDePedidos.API.Controllers
         {
             try
             {
-                var pedidos = await PedidoApplication.GetAllPedidosWithStatusProntoAsync();
+                var pedidos = await PedidoApplication.GetAllPedidosByStatusAsync(Status.Pronto);
 
                 return Ok(pedidos);
             }

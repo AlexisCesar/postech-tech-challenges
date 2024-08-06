@@ -1,4 +1,5 @@
 ﻿using ControleDePedidos.Dominio.Entidades;
+using ControleDePedidos.Dominio.Entities.Enums;
 
 namespace ControleDePedidos.Application.Ports
 {
@@ -8,9 +9,7 @@ namespace ControleDePedidos.Application.Ports
         Task<bool> SavePedidoAsync(PedidoAggregate pedido);
         Task <PedidoAggregate?> GetPedidoById (Guid idPedido);
         Task<List<PedidoAggregate>> GetAllPedidosNaoFinalizadosAsync();
-        Task<List<PedidoAggregate>> GetAllPedidosRecebidosAsync();
-        Task<List<PedidoAggregate>> GetAllPedidosEmPreparacaoAsync();
-        Task<List<PedidoAggregate>> GetAllPedidosProntoAsync();
+        Task<List<PedidoAggregate>> GetAllPedidosByStatusAsync(Status status);
         Task<bool> SavePagamentoAsync(PagamentoAggregate pagamento);  
     }
 }

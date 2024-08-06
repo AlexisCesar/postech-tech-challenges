@@ -1,4 +1,4 @@
-﻿namespace ControleDePedidos.Application.Exceptions
+﻿namespace ControleDePedidos.Application.Exceptions.Acompanhamento
 {
     [Serializable]
     public class AtualizarStatusException : Exception
