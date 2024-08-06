@@ -46,4 +46,3 @@ A aplicação segue a arquitetura hexagonal (Ports and Adapters), que facilita a
 docker-compose up
 ```
 - Acesse a aplicação através do swagger pelo seguinte endereço: http://localhost:7575/swagger
-- Alternativamente você pode utilizar um API Client como o Postman, acessando diretamente os endpoints citados a seguir
