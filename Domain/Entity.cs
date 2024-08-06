@@ -1,7 +1,7 @@
 ﻿namespace ControleDePedidos.Dominio
 {
-    public class Entity
+    public class Entity<T>
     {
-        Guid Id { get; }
+        public T Id { get; }
     }
 }
