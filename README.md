@@ -15,9 +15,14 @@ Esta API foi projetada para gerenciar pedidos de uma lanchonete de bairro, permi
 Os diagramas relacionados ao projeto (Event Storming) e o dicionário de linguagem ubíqua podem ser encontrados no nosso [board do Miro](https://miro.com/app/board/uXjVK26mPM0=/?share_link_id=393927699887) 😉
 
 ## Navegação
+- [Arquitetura](#arquitetura)
 - [Funcionalidades](#funcionalidades)
 - [Tecnologias Utilizadas](#tecnologias-utilizadas)
 - [Rodando o projeto](#rodando-o-projeto)
+
+## Arquitetura
+
+A aplicação segue a arquitetura hexagonal (Ports and Adapters), que facilita a manutenção e escalabilidade. Esta arquitetura permite que a lógica de negócios principal seja independente de qualquer dependência externa, como bancos de dados ou serviços externos.
 
 ## Funcionalidades
  
