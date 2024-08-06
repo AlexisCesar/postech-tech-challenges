@@ -10,6 +10,7 @@ namespace ControleDePedidos.Application.Ports
         Task<List<PedidoAggregate>> GetAllPedidosNaoFinalizadosAsync();
         Task<List<PedidoAggregate>> GetAllPedidosRecebidosAsync();
         Task<List<PedidoAggregate>> GetAllPedidosEmPreparacaoAsync();
-        Task<bool> SavePagamentoAsync(PagamentoAggregate pagamento);     
+        Task<List<PedidoAggregate>> GetAllPedidosProntoAsync();
+        Task<bool> SavePagamentoAsync(PagamentoAggregate pagamento);  
     }
 }

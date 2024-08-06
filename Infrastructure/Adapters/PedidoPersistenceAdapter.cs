@@ -39,6 +39,18 @@ namespace ControleDePedidos.Infrastructure.Adapters
                        .ToListAsync();
         }
 
+        public async Task<List<PedidoAggregate>> GetAllPedidosProntoAsync()
+        {
+            return await Context.Pedido
+                      .Include(x => x.Cliente)
+                      .Include(x => x.Acompanhamento)
+                      .Include(x => x.Pagamento)
+                      .Include(p => p.Itens)
+                      .ThenInclude(p => p.Produto)
+                      .Where(x => x.Acompanhamento.Status == Status.Pronto)
+                      .ToListAsync();
+        }
+
         public async Task<List<PedidoAggregate>> GetAllPedidosRecebidosAsync()
         {
             return await Context.Pedido

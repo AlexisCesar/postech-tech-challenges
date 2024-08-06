@@ -139,5 +139,13 @@ namespace ControleDePedidos.Application
 
             return acompanhamentosDto;
         }
+
+        public async Task<List<PedidoDto>> GetAllPedidosWithStatusProntoAsync()
+        {
+            var acompanhamentos = await PedidoPersistencePort.GetAllPedidosProntoAsync();
+            var acompanhamentosDto = acompanhamentos.Select(x => x.ToPedidoDto()).ToList();
+
+            return acompanhamentosDto;
+        }
     }
 }

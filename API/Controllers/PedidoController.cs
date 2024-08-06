@@ -197,5 +197,22 @@ namespace ControleDePedidos.API.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, "Erro ao processar a requisição, tente novamente mais tarde.");
             }
         }
+
+        [HttpGet("prontos")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> GetAllPedidosWithStatusPronto()
+        {
+            try
+            {
+                var pedidos = await PedidoApplication.GetAllPedidosWithStatusProntoAsync();
+
+                return Ok(pedidos);
+            }
+            catch
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Erro ao processar a requisição, tente novamente mais tarde.");
+            }
+        }
     }
 }

@@ -11,5 +11,7 @@ namespace ControleDePedidos.Application.Interfaces
         Task<List<PedidoDto>> GetAllPedidosAsync();
         Task<List<PedidoDto>> GetAllPedidosWithStatusRecebidoAsync();
         Task<List<PedidoDto>> GetAllPedidosWithStatusEmPreparacaoAsync();
+
+        Task<List<PedidoDto>> GetAllPedidosWithStatusProntoAsync();
     }
 }
