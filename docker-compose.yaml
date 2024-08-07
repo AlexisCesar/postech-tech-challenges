@@ -8,6 +8,8 @@ services:
     volumes:
       - lanchonetedobairro_pgsql:/var/lib/postgresql/data
     environment:
+      POSTGRES_USER: ${DB_USER}
+      PGUSER: ${DB_USER}
       POSTGRES_PASSWORD: ${DB_PASSWORD}
     networks:
       - controledepedidos-network
