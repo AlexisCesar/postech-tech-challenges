@@ -9,8 +9,6 @@ services:
       - lanchonetedobairro_pgsql:/var/lib/postgresql/data
     environment:
       POSTGRES_PASSWORD: ${DB_PASSWORD}
-    ports:
-      - "5432:5432"
     networks:
       - controledepedidos-network
     healthcheck:
