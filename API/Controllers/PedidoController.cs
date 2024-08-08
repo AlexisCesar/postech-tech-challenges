@@ -59,7 +59,7 @@ namespace ControleDePedidos.API.Controllers
 
                 return Ok();
             }
-            catch (PagamentoNaoEncontradoException ex)
+            catch (PedidoNaoEncontradoException ex)
             {
                 return NotFound(ex.Message);
             }
