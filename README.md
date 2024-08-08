@@ -19,6 +19,7 @@ Os diagramas relacionados ao projeto (Event Storming) e o dicionário de linguag
 - [Funcionalidades](#funcionalidades)
 - [Tecnologias Utilizadas](#tecnologias-utilizadas)
 - [Rodando o projeto](#rodando-o-projeto)
+- [Acessando o banco de dados](#acessando-o-banco-de-dados)
 
 ## Arquitetura
 
@@ -40,9 +41,18 @@ A aplicação segue a arquitetura hexagonal (Ports and Adapters), que facilita a
   
 ## Rodando o projeto
 - 🐳 [Docker](https://www.docker.com/get-started) é um pré-requisito para rodar esta aplicação localmente
-- 📜 Com o Docker instalado, execute o seguinte comando pelo terminal na pasta raíz do projeto
+- 📜 Com o Docker instalado, execute o seguinte comando pelo terminal na pasta raíz do projeto:
 
 ```bash
 docker-compose up
 ```
 - Acesse a aplicação através do swagger pelo seguinte endereço: http://localhost:7575/swagger
+
+## Acessando o banco de dados
+
+Por padrão, o banco de dados não é exposto ao subir os contêineres para evitar conflitos de portas. Para acessar o banco de dados, será necessário executar o seguinte comando na pasta raíz do projeto ao invés do mencionado na etapa anterior:
+
+```bash
+docker compose -f docker-compose-db-exposed.yaml up
+```
+Agora você pode acessar o banco de dados através de um sistema gerenciador de banco de dados para o PostgreSQL, como o [PgAdmin](https://www.pgadmin.org/download/), no servidor localhost e com a porta padrão do PostgreSQL (5432). As credenciais do banco local podem ser encontrados no arquivo .env na pasta raíz do projeto.

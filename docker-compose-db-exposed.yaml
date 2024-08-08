@@ -1,0 +1,44 @@
+version: '3.8'
+
+services:
+  lanchonetedobairro_db:
+    image: postgres
+    restart: always
+    container_name: ${DB_HOST}
+    volumes:
+      - lanchonetedobairro_pgsql:/var/lib/postgresql/data
+    ports:
+      - '5432:5432'
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      PGUSER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    networks:
+      - controledepedidos-network
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready" ]
+      timeout: 10s
+      retries: 3
+  lanchonetedobairro_api:
+    build: .
+    restart: always
+    container_name: lanchonetedobairro_api
+    networks:
+      - controledepedidos-network
+    depends_on:
+      lanchonetedobairro_db:
+        condition: service_healthy
+    ports:
+     - '7575:80'
+    environment:
+       DB_HOST: ${DB_HOST}
+       DB_PORT: ${DB_PORT}
+       DB_USER: ${DB_USER}
+       DB_PASSWORD: ${DB_PASSWORD}
+       DB_NAME: ${DB_NAME} 
+volumes:
+  lanchonetedobairro_pgsql:  
+
+networks:
+  controledepedidos-network:
+    driver: bridge
