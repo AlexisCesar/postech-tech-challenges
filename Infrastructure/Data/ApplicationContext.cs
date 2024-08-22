@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ControleDePedidos.Infrastructure.Data
 {
-    public class ApplicationContext : DbContext
+    internal class ApplicationContext : DbContext
     {
         public ApplicationContext() { }
 

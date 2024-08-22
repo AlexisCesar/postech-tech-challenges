@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ControleDePedidos.Infrastructure.Adapters
 {
-    public class ProdutoPersistenceAdapter : IProdutoPersistencePort
+    internal class ProdutoPersistenceAdapter : IProdutoPersistencePort
     {
         private ApplicationContext Context;
 

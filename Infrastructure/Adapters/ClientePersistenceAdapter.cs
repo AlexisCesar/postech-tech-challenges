@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ControleDePedidos.Infrastructure.Adapters
 {
-    public class ClientePersistenceAdapter : IClientePersistencePort
+    internal class ClientePersistenceAdapter : IClientePersistencePort
     {
         private ApplicationContext Context;
 

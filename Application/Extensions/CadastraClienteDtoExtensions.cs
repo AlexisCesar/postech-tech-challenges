@@ -16,10 +16,7 @@ namespace ControleDePedidos.Application.Extensions
             return new ClienteAggregate()
             {
                 CPF = new CPF(clienteDto.CPF),
-                Email = new Email()
-                {
-                    Endereco = clienteDto.EnderecoEmail ?? ""
-                },
+                Email = new Email(clienteDto.EnderecoEmail ?? ""),
                 Nome = clienteDto.Nome
             };
         }
