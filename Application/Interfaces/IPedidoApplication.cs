@@ -1,5 +1,5 @@
 ﻿using ControleDePedidos.Application.Dtos;
-using ControleDePedidos.Dominio.Entities.Enums;
+using ControleDePedidos.Core.Entities.Enums;
 
 namespace ControleDePedidos.Application.Interfaces
 {

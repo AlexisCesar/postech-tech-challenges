@@ -3,7 +3,8 @@ using ControleDePedidos.Application.Exceptions.Produto;
 using ControleDePedidos.Application.Extensions;
 using ControleDePedidos.Application.Interfaces;
 using ControleDePedidos.Application.Ports;
-using ControleDePedidos.Dominio.Entities.Enums;
+using ControleDePedidos.Core.Entities.Enums;
+using ControleDePedidos.Core.Entities.ValueObjects;
 
 namespace ControleDePedidos.Application
 {
@@ -61,7 +62,7 @@ namespace ControleDePedidos.Application
             if (produtoCadastrado == null) throw new ProdutoNaoCadastradoException("Produto nao encontrado.");
 
             produtoCadastrado.Nome = produto.Nome;
-            produtoCadastrado.Preco = produto.Preco;
+            produtoCadastrado.Preco = new Preco(produto.Preco);
             produtoCadastrado.Categoria = produto.Categoria;
 
             var produtoAtualizado = await ProdutoPersistancePort.UpdateProdutoAsync(produtoCadastrado);

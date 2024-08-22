@@ -4,7 +4,7 @@ using ControleDePedidos.Application.Exceptions.Pagamento;
 using ControleDePedidos.Application.Exceptions.Pedido;
 using ControleDePedidos.Application.Exceptions.Produto;
 using ControleDePedidos.Application.Interfaces;
-using ControleDePedidos.Dominio.Entities.Enums;
+using ControleDePedidos.Core.Entities.Enums;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ControleDePedidos.API.Controllers

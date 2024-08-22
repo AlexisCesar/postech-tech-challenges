@@ -1,5 +1,5 @@
 ﻿using ControleDePedidos.Application.Dtos;
-using ControleDePedidos.Dominio.Entidades;
+using ControleDePedidos.Core.Entidades;
 
 namespace ControleDePedidos.Application.Extensions
 {
@@ -10,7 +10,7 @@ namespace ControleDePedidos.Application.Extensions
             var pedido =  new PedidoDto()
             {
                 IdPedido = pedidoAggregate.Id,
-                CpfCliente = pedidoAggregate.Cliente?.CPF,
+                CpfCliente = pedidoAggregate.Cliente?.CPF?.ToString(),
                 NomeCliente = pedidoAggregate.Cliente?.Nome,
                 ValorTotal = pedidoAggregate.CalcularValorPedido(),
                 StatusPedido = pedidoAggregate.Acompanhamento.Status.ToString(),

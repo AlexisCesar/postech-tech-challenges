@@ -1,6 +1,6 @@
 ﻿using ControleDePedidos.Application.Ports;
-using ControleDePedidos.Dominio.Entidades;
-using ControleDePedidos.Dominio.Entities.Enums;
+using ControleDePedidos.Core.Entidades;
+using ControleDePedidos.Core.Entities.Enums;
 using ControleDePedidos.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 

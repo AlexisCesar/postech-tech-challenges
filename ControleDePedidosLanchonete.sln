@@ -5,9 +5,9 @@ VisualStudioVersion = 17.6.33723.286
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ControleDePedidos.API", "API\ControleDePedidos.API.csproj", "{2A684371-115B-4E33-BD7D-477EF97CE396}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ControleDePedidos.Application", "Application\ControleDePedidos.Application.csproj", "{7614A95C-9E00-48C9-9784-2A78149F51C8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ControleDePedidos.UseCases", "Application\ControleDePedidos.UseCases.csproj", "{7614A95C-9E00-48C9-9784-2A78149F51C8}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ControleDePedidos.Domain", "Domain\ControleDePedidos.Domain.csproj", "{4E584D86-9684-4383-AEFE-885297129356}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ControleDePedidos.Core", "Domain\ControleDePedidos.Core.csproj", "{4E584D86-9684-4383-AEFE-885297129356}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ControleDePedidos.Infrastructure", "Infrastructure\ControleDePedidos.Infrastructure.csproj", "{A41EB8BD-7AE4-412D-8B68-083880DE238D}"
 EndProject

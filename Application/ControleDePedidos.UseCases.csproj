@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Domain\ControleDePedidos.Domain.csproj" />
+    <ProjectReference Include="..\Domain\ControleDePedidos.Core.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,5 +1,5 @@
-﻿using ControleDePedidos.Dominio.Entidades;
-using ControleDePedidos.Dominio.Entities.Enums;
+﻿using ControleDePedidos.Core.Entidades;
+using ControleDePedidos.Core.Entities.Enums;
 
 namespace ControleDePedidos.Application.Ports
 {

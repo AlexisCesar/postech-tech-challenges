@@ -1,5 +1,6 @@
 ﻿using ControleDePedidos.Application.Dtos;
-using ControleDePedidos.Dominio.Entidades;
+using ControleDePedidos.Core.Entidades;
+using ControleDePedidos.Core.Entities.ValueObjects;
 
 namespace ControleDePedidos.Application.Extensions
 {
@@ -15,7 +16,7 @@ namespace ControleDePedidos.Application.Extensions
             return new ProdutoAggregate()
             {
                 Nome = cadastraProdutoDto.Nome,
-                Preco = cadastraProdutoDto.Preco,
+                Preco = new Preco(cadastraProdutoDto.Preco),
                 Categoria = cadastraProdutoDto.Categoria,
             };
         }

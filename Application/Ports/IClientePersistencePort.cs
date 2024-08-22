@@ -1,4 +1,4 @@
-﻿using ControleDePedidos.Dominio.Entidades;
+﻿using ControleDePedidos.Core.Entidades;
 
 namespace ControleDePedidos.Application.Ports
 {

@@ -1,6 +1,6 @@
 ﻿using ControleDePedidos.Application.Dtos;
-using ControleDePedidos.Dominio.Entidades;
-using ControleDePedidos.Dominio.Entities.ValueObjects;
+using ControleDePedidos.Core.Entities.ValueObjects;
+using ControleDePedidos.Core.Entidades;
 
 namespace ControleDePedidos.Application.Extensions
 {
@@ -15,7 +15,7 @@ namespace ControleDePedidos.Application.Extensions
 
             return new ClienteAggregate()
             {
-                CPF = clienteDto.CPF,
+                CPF = new CPF(clienteDto.CPF),
                 Email = new Email()
                 {
                     Endereco = clienteDto.EnderecoEmail ?? ""

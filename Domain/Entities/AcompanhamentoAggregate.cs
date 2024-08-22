@@ -1,6 +1,6 @@
-﻿using ControleDePedidos.Dominio.Entities.Enums;
+﻿using ControleDePedidos.Core.Entities.Enums;
 
-namespace ControleDePedidos.Dominio.Entidades
+namespace ControleDePedidos.Core.Entidades
 {
     public class AcompanhamentoAggregate : Entity<Guid>, IAggregateRoot
     {

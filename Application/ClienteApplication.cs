@@ -4,7 +4,7 @@ using ControleDePedidos.Application.Exceptions.Produto;
 using ControleDePedidos.Application.Extensions;
 using ControleDePedidos.Application.Interfaces;
 using ControleDePedidos.Application.Ports;
-using ControleDePedidos.Dominio.Entidades;
+using ControleDePedidos.Core.Entidades;
 using System.Text.RegularExpressions;
 
 namespace ControleDePedidos.Application
