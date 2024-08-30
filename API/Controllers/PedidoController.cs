@@ -3,8 +3,9 @@ using ControleDePedidos.Application.Exceptions.Acompanhamento;
 using ControleDePedidos.Application.Exceptions.Pagamento;
 using ControleDePedidos.Application.Exceptions.Pedido;
 using ControleDePedidos.Application.Exceptions.Produto;
-using ControleDePedidos.Application.Interfaces;
 using ControleDePedidos.Core.Entities.Enums;
+using ControleDePedidos.UseCases;
+using ControleDePedidos.UseCases.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ControleDePedidos.API.Controllers
@@ -13,12 +14,20 @@ namespace ControleDePedidos.API.Controllers
     [Route("api/v1/[controller]")]
     public class PedidoController : ControllerBase
     {
+        private readonly IRealizarPedidoUseCase RealizarPedidoUseCase;
+        private readonly IPagamentoUseCases PagamentoUseCases;
+        private readonly IAcompanhamentoUseCases AcompanhamentoUseCases;
+        private readonly IBuscarPedidoUseCase BuscarPedidoUseCase;
 
-        private readonly IPedidoApplication PedidoApplication;
-
-        public PedidoController(IPedidoApplication pedidoApplication)
+        public PedidoController(IRealizarPedidoUseCase realizarPedidoUseCase, 
+                                IPagamentoUseCases pagamentoUseCases, 
+                                IAcompanhamentoUseCases acompanhamentoUseCases, 
+                                IBuscarPedidoUseCase buscarPedidoUseCase)
         {
-            PedidoApplication = pedidoApplication;
+            RealizarPedidoUseCase = realizarPedidoUseCase;
+            PagamentoUseCases = pagamentoUseCases;
+            AcompanhamentoUseCases = acompanhamentoUseCases;
+            BuscarPedidoUseCase = buscarPedidoUseCase;
         }
 
         [HttpPost]
@@ -31,7 +40,7 @@ namespace ControleDePedidos.API.Controllers
 
             try
             {
-                var pedidoRealizadoDto = await PedidoApplication.RealizarPedido(pedidoDto);
+                var pedidoRealizadoDto = await RealizarPedidoUseCase.RealizarPedido(pedidoDto);
 
                 return Ok(pedidoRealizadoDto);
             }
@@ -55,7 +64,7 @@ namespace ControleDePedidos.API.Controllers
 
             try
             {
-                await PedidoApplication.ConfirmarPagamentoAsync(idPedido);
+                await PagamentoUseCases.ConfirmarPagamentoAsync(idPedido);
 
                 return Ok();
             }
@@ -88,7 +97,7 @@ namespace ControleDePedidos.API.Controllers
 
             try
             {
-                await PedidoApplication.AtualizaStatusComoProntoAsync(idPedido);
+                await AcompanhamentoUseCases.AtualizaStatusComoProntoAsync(idPedido);
 
                 return Ok();
             }
@@ -125,7 +134,7 @@ namespace ControleDePedidos.API.Controllers
 
             try
             {
-                await PedidoApplication.FinalizaPedidoAsync(idPedido);
+                await AcompanhamentoUseCases.FinalizaPedidoAsync(idPedido);
 
                 return Ok();
             }
@@ -158,7 +167,7 @@ namespace ControleDePedidos.API.Controllers
         {
             try
             {
-                var pedidos = await PedidoApplication.GetAllPedidosAsync();
+                var pedidos = await BuscarPedidoUseCase.GetAllPedidosAsync();
 
                 return Ok(pedidos);
             }         
@@ -175,7 +184,7 @@ namespace ControleDePedidos.API.Controllers
         {
             try
             {
-                var pedidos = await PedidoApplication.GetAllPedidosByStatusAsync(Status.Recebido);
+                var pedidos = await BuscarPedidoUseCase.GetAllPedidosByStatusAsync(Status.Recebido);
 
                 return Ok(pedidos);
             }
@@ -192,7 +201,7 @@ namespace ControleDePedidos.API.Controllers
         {
             try
             {
-                var pedidos = await PedidoApplication.GetAllPedidosByStatusAsync(Status.Preparacao);
+                var pedidos = await BuscarPedidoUseCase.GetAllPedidosByStatusAsync(Status.Preparacao);
 
                 return Ok(pedidos);
             }
@@ -209,7 +218,7 @@ namespace ControleDePedidos.API.Controllers
         {
             try
             {
-                var pedidos = await PedidoApplication.GetAllPedidosByStatusAsync(Status.Pronto);
+                var pedidos = await BuscarPedidoUseCase.GetAllPedidosByStatusAsync(Status.Pronto);
 
                 return Ok(pedidos);
             }

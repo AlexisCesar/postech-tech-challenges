@@ -15,5 +15,6 @@ namespace ControleDePedidos.Application.Dtos
             ErrorMessage = "A nota de customizacao deve ter entre 0 a 200 caracteres."
         )]
         public string? Customizacao { get; set; }
+        public double Preco { get; set; }
     }
 }

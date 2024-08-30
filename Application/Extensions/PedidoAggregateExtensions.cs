@@ -25,7 +25,8 @@ namespace ControleDePedidos.Application.Extensions
                 {
                     Customizacao = i.Customizacao,
                     Quantidade = i.Quantidade,
-                    IdProduto = i.Produto.Id
+                    IdProduto = i.Produto.Id,
+                    Preco = i.Produto.Preco.Value
                 });
  
             });

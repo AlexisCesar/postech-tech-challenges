@@ -9,9 +9,9 @@ namespace ControleDePedidos.Controllers
     [Route("api/v1/[controller]")]
     public class ClienteController : ControllerBase
     {
-        private readonly IClienteApplication ClientApplication;
+        private readonly IClienteUseCases ClientApplication;
 
-        public ClienteController(IClienteApplication clientApplication)
+        public ClienteController(IClienteUseCases clientApplication)
         {
             ClientApplication = clientApplication;
         }

@@ -8,12 +8,12 @@ using ControleDePedidos.Core.Entities.ValueObjects;
 
 namespace ControleDePedidos.Application
 {
-    public class ProdutoApplication : IProdutoApplication
+    public class ProdutoUseCases : IProdutoUseCases
     {
 
         private readonly IProdutoPersistencePort ProdutoPersistancePort;
 
-        public ProdutoApplication(IProdutoPersistencePort produtoPersistancePort)
+        public ProdutoUseCases(IProdutoPersistencePort produtoPersistancePort)
         {
             ProdutoPersistancePort = produtoPersistancePort;
         }

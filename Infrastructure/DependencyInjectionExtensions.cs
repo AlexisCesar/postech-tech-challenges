@@ -3,6 +3,8 @@ using ControleDePedidos.Application.Ports;
 using ControleDePedidos.Application;
 using ControleDePedidos.Infrastructure.Adapters;
 using ControleDePedidos.Infrastructure.Data;
+using ControleDePedidos.UseCases.Interfaces;
+using ControleDePedidos.UseCases;
 
 namespace Microsoft.Extensions.DependencyInjection
 {
@@ -10,12 +12,17 @@ namespace Microsoft.Extensions.DependencyInjection
     {
         public static IServiceCollection AddInfrastructure (this IServiceCollection services)
         {
-            services.AddScoped<IClienteApplication, ClienteApplication>();
+            services.AddScoped<IClienteUseCases, ClienteUseCases>();
             services.AddScoped<IClientePersistencePort, ClientePersistenceAdapter>();
-            services.AddScoped<IProdutoApplication, ProdutoApplication>();
+            services.AddScoped<IProdutoUseCases, ProdutoUseCases>();
             services.AddScoped<IProdutoPersistencePort, ProdutoPersistenceAdapter>();
-            services.AddScoped<IPedidoApplication, PedidoApplication>();
             services.AddScoped<IPedidoPersistencePort, PedidoPersistenceAdapter>();
+            services.AddScoped<IAcompanhamentoUseCases, AcompanhamentoUseCases>();
+            services.AddScoped<IBuscarPedidoUseCase, BuscarPedidoUseCase>();
+            services.AddScoped<IClienteUseCases, ClienteUseCases>();
+            services.AddScoped<IPagamentoUseCases, PagamentoUseCases>();
+            services.AddScoped<IProdutoUseCases, ProdutoUseCases>();
+            services.AddScoped<IRealizarPedidoUseCase, RealizarPedidoUseCase>();
 
             services.AddDbContext<ApplicationContext>();
 

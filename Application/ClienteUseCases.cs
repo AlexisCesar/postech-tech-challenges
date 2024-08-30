@@ -1,6 +1,5 @@
 ﻿using ControleDePedidos.Application.Dtos;
 using ControleDePedidos.Application.Exceptions.Cliente;
-using ControleDePedidos.Application.Exceptions.Produto;
 using ControleDePedidos.Application.Extensions;
 using ControleDePedidos.Application.Interfaces;
 using ControleDePedidos.Application.Ports;
@@ -9,11 +8,11 @@ using System.Text.RegularExpressions;
 
 namespace ControleDePedidos.Application
 {
-    public partial class ClienteApplication : IClienteApplication
+    public partial class ClienteUseCases : IClienteUseCases
     {
         private readonly IClientePersistencePort ClientePersistancePort;
 
-        public ClienteApplication(IClientePersistencePort clientePersistancePort)
+        public ClienteUseCases(IClientePersistencePort clientePersistancePort)
         {
             ClientePersistancePort = clientePersistancePort;
         }

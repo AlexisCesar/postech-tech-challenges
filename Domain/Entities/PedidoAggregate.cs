@@ -4,7 +4,7 @@
     {
         public ClienteAggregate? Cliente { get; set; }
         public List<ItemPedido> Itens { get; set; } = new List<ItemPedido>();
-        public double CalcularValorPedido () => Itens.Sum(x => x.Produto.Preco.Valor * x.Quantidade);
+        public double CalcularValorPedido () => Itens.Sum(x => x.Produto.Preco.Value * x.Quantidade);
         public PagamentoAggregate Pagamento {  get; set; }
         public AcompanhamentoAggregate Acompanhamento { get; set; }
     }

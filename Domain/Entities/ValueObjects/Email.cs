@@ -19,7 +19,12 @@ namespace ControleDePedidos.Core.Entities.ValueObjects
                 throw new ArgumentException("Email inválido.");
             }
         }
-        
+
+        private Email()
+        {
+            
+        }
+
         protected override IEnumerable<object> GetEqualityComponents()
         {
             yield return Endereco;

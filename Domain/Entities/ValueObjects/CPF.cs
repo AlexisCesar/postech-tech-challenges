@@ -4,10 +4,15 @@ namespace ControleDePedidos.Core.Entities.ValueObjects
 {
     public class CPF : ValueObject
     {
-        private string Cpf { get; set; }
+        public string Value { get; private set; }
         public CPF (string cpf) 
         { 
             SetCpf(cpf);
+        }
+
+        private CPF()
+        {
+            
         }
 
         private void SetCpf(string cpf)
@@ -17,7 +22,7 @@ namespace ControleDePedidos.Core.Entities.ValueObjects
 
             if (isValid)
             {
-                Cpf = cpf;
+                Value = cpf;
             }
             else
             {
@@ -28,12 +33,12 @@ namespace ControleDePedidos.Core.Entities.ValueObjects
 
         public override string? ToString()
         {
-            return Cpf;
+            return Value;
         }
 
         protected override IEnumerable<object> GetEqualityComponents()
         {
-            yield return Cpf;
+            yield return Value;
         }
     }
 }

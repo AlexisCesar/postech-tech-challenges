@@ -3,6 +3,7 @@ using System;
 using ControleDePedidos.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace ControleDePedidos.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    partial class ApplicationContextModelSnapshot : ModelSnapshot
+    [Migration("20240830170242_AddCpfAndEmailAsValueObjects")]
+    partial class AddCpfAndEmailAsValueObjects
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -152,11 +155,6 @@ namespace ControleDePedidos.Infrastructure.Migrations
                             b1.Property<Guid>("ClienteAggregateId")
                                 .HasColumnType("uuid");
 
-                            b1.Property<string>("Value")
-                                .IsRequired()
-                                .HasColumnType("text")
-                                .HasColumnName("CPF");
-
                             b1.HasKey("ClienteAggregateId");
 
                             b1.ToTable("Cliente");
@@ -234,10 +232,6 @@ namespace ControleDePedidos.Infrastructure.Migrations
                         {
                             b1.Property<int>("ProdutoAggregateId")
                                 .HasColumnType("integer");
-
-                            b1.Property<double>("Value")
-                                .HasColumnType("double precision")
-                                .HasColumnName("Preco");
 
                             b1.HasKey("ProdutoAggregateId");
 

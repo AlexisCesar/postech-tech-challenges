@@ -16,7 +16,7 @@ namespace ControleDePedidos.Infrastructure.Adapters
 
         public async Task<ClienteAggregate?> GetClienteByCPF(string cpf)
         {
-            return await Context.Cliente.FirstOrDefaultAsync(c => c.CPF.ToString() == cpf);
+            return await Context.Cliente.Include(x => x.CPF).FirstOrDefaultAsync(c => c.CPF != null && c.CPF.Value == cpf);
         }
 
         public async Task<bool> SalvarClienteAsync(ClienteAggregate clienteAggregate)

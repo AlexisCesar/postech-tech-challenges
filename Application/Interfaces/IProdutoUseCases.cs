@@ -3,7 +3,7 @@ using ControleDePedidos.Core.Entities.Enums;
 
 namespace ControleDePedidos.Application.Interfaces
 {
-    public interface IProdutoApplication
+    public interface IProdutoUseCases
     {
         Task<ProdutoDto> AtualizaProdutoAsync(int id, AtualizaProdutoDto produto);
         Task<IEnumerable<ProdutoDto>> BuscaProdutosAsync();

@@ -3,21 +3,26 @@ namespace ControleDePedidos.Core.Entities.ValueObjects
 {
     public class Preco : ValueObject
     {
-        public double Valor { get; }
+        public double Value { get; }
 
-        public Preco(double valor) 
+        public Preco(double value) 
         {
-            if(valor < 0)
+            if(value < 0)
             {
                 throw new ArgumentOutOfRangeException("O preço não pode ser negativo.");
             }
 
-            Valor = valor;
+            Value = value;
+        }
+
+        private Preco()
+        {
+            
         }
 
         protected override IEnumerable<object> GetEqualityComponents()
         {
-            yield return Valor;
+            yield return Value;
         }
     }
 }
