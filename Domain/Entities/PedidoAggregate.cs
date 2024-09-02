@@ -7,5 +7,6 @@
         public double CalcularValorPedido () => Itens.Sum(x => x.Produto.Preco.Value * x.Quantidade);
         public PagamentoAggregate Pagamento {  get; set; }
         public AcompanhamentoAggregate Acompanhamento { get; set; }
+        public DateTime HorarioRecebimento { get; set; } = DateTime.UtcNow;
     }
 }

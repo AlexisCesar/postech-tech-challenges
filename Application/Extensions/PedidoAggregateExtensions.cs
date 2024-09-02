@@ -16,7 +16,8 @@ namespace ControleDePedidos.Application.Extensions
                 StatusPedido = pedidoAggregate.Acompanhamento.Status.ToString(),
                 CodigoAcompanhamento = pedidoAggregate.Acompanhamento.CodigoAcompanhamento,
                 Pago = pedidoAggregate.Pagamento.Pago,
-                IdPagamento = pedidoAggregate.Pagamento.Id
+                IdPagamento = pedidoAggregate.Pagamento.Id,
+                HorarioRecebimento = pedidoAggregate.HorarioRecebimento
             };
 
             pedidoAggregate.Itens.ForEach(i =>

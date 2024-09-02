@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using ControleDePedidos.UseCases.Dtos;
+using System.ComponentModel.DataAnnotations;
 
 namespace ControleDePedidos.Application.Dtos
 {
@@ -11,6 +12,6 @@ namespace ControleDePedidos.Application.Dtos
         public string? CpfCliente { get; set; }
 
         [Required]
-        public required List<ItemPedidoDto> Itens { get; set; }
+        public required List<CriaItemPedidoDto> Itens { get; set; }
     }
 }
