@@ -2,7 +2,7 @@
 using ControleDePedidos.Application.Exceptions.Pedido;
 using ControleDePedidos.Application.Exceptions.Produto;
 using ControleDePedidos.Application.Extensions;
-using ControleDePedidos.Application.Ports;
+using ControleDePedidos.Application.Gateways;
 using ControleDePedidos.Core.Entidades;
 using ControleDePedidos.Core.Entities.Enums;
 using ControleDePedidos.UseCases.Interfaces;
@@ -11,13 +11,13 @@ namespace ControleDePedidos.UseCases
 {
     public class RealizarPedidoUseCase : IRealizarPedidoUseCase
     {
-        private readonly IPedidoPersistencePort PedidoPersistencePort;
-        private readonly IClientePersistencePort ClientePersistencePort;
-        private readonly IProdutoPersistencePort ProdutoPersistencePort;
+        private readonly IPedidoPersistenceGateway PedidoPersistencePort;
+        private readonly IClientePersistenceGateway ClientePersistencePort;
+        private readonly IProdutoPersistenceGateway ProdutoPersistencePort;
 
-        public RealizarPedidoUseCase(IPedidoPersistencePort pedidoPersistencePort,
-                                    IClientePersistencePort clientePersistencePort,
-                                    IProdutoPersistencePort produtoPersistencePort)
+        public RealizarPedidoUseCase(IPedidoPersistenceGateway pedidoPersistencePort,
+                                    IClientePersistenceGateway clientePersistencePort,
+                                    IProdutoPersistenceGateway produtoPersistencePort)
         {
             PedidoPersistencePort = pedidoPersistencePort;
             ClientePersistencePort = clientePersistencePort;

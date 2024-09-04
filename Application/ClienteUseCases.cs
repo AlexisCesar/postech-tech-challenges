@@ -2,7 +2,7 @@
 using ControleDePedidos.Application.Exceptions.Cliente;
 using ControleDePedidos.Application.Extensions;
 using ControleDePedidos.Application.Interfaces;
-using ControleDePedidos.Application.Ports;
+using ControleDePedidos.Application.Gateways;
 using ControleDePedidos.Core.Entidades;
 using System.Text.RegularExpressions;
 
@@ -10,9 +10,9 @@ namespace ControleDePedidos.Application
 {
     public partial class ClienteUseCases : IClienteUseCases
     {
-        private readonly IClientePersistencePort ClientePersistancePort;
+        private readonly IClientePersistenceGateway ClientePersistancePort;
 
-        public ClienteUseCases(IClientePersistencePort clientePersistancePort)
+        public ClienteUseCases(IClientePersistenceGateway clientePersistancePort)
         {
             ClientePersistancePort = clientePersistancePort;
         }

@@ -2,7 +2,7 @@
 using ControleDePedidos.Application.Exceptions.Produto;
 using ControleDePedidos.Application.Extensions;
 using ControleDePedidos.Application.Interfaces;
-using ControleDePedidos.Application.Ports;
+using ControleDePedidos.Application.Gateways;
 using ControleDePedidos.Core.Entities.Enums;
 using ControleDePedidos.Core.Entities.ValueObjects;
 
@@ -11,9 +11,9 @@ namespace ControleDePedidos.Application
     public class ProdutoUseCases : IProdutoUseCases
     {
 
-        private readonly IProdutoPersistencePort ProdutoPersistancePort;
+        private readonly IProdutoPersistenceGateway ProdutoPersistancePort;
 
-        public ProdutoUseCases(IProdutoPersistencePort produtoPersistancePort)
+        public ProdutoUseCases(IProdutoPersistenceGateway produtoPersistancePort)
         {
             ProdutoPersistancePort = produtoPersistancePort;
         }

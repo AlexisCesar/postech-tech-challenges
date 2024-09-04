@@ -1,9 +1,9 @@
 ﻿using ControleDePedidos.Core.Entidades;
 using ControleDePedidos.Core.Entities.Enums;
 
-namespace ControleDePedidos.Application.Ports
+namespace ControleDePedidos.Application.Gateways
 {
-    public interface IPedidoPersistencePort
+    public interface IPedidoPersistenceGateway
     {
         Task<bool> SaveAcompanhamentoAsync(AcompanhamentoAggregate acompanhamento);
         Task<bool> SavePedidoAsync(PedidoAggregate pedido);

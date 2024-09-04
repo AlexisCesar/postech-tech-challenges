@@ -1,8 +1,8 @@
 ﻿using ControleDePedidos.Core.Entidades;
 
-namespace ControleDePedidos.Application.Ports
+namespace ControleDePedidos.Application.Gateways
 {
-    public interface IClientePersistencePort
+    public interface IClientePersistenceGateway
     {
         Task<bool> SalvarClienteAsync(ClienteAggregate clienteAggregate);
         Task<ClienteAggregate?> GetClienteByCPF(string cpf);

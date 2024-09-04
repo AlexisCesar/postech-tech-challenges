@@ -1,7 +1,7 @@
 ﻿using ControleDePedidos.Application.Exceptions.Acompanhamento;
 using ControleDePedidos.Application.Exceptions.Pagamento;
 using ControleDePedidos.Application.Exceptions.Pedido;
-using ControleDePedidos.Application.Ports;
+using ControleDePedidos.Application.Gateways;
 using ControleDePedidos.Core.Entidades;
 using ControleDePedidos.Core.Entities.Enums;
 using ControleDePedidos.UseCases.Interfaces;
@@ -10,9 +10,9 @@ namespace ControleDePedidos.UseCases
 {
     public class AcompanhamentoUseCases : IAcompanhamentoUseCases
     {
-        private readonly IPedidoPersistencePort PedidoPersistencePort;
+        private readonly IPedidoPersistenceGateway PedidoPersistencePort;
 
-        public AcompanhamentoUseCases(IPedidoPersistencePort pedidoPersistencePort)
+        public AcompanhamentoUseCases(IPedidoPersistenceGateway pedidoPersistencePort)
         {
             PedidoPersistencePort = pedidoPersistencePort;
         }

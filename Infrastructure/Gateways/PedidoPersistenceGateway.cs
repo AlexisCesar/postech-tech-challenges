@@ -1,16 +1,16 @@
-﻿using ControleDePedidos.Application.Ports;
+﻿using ControleDePedidos.Application.Gateways;
 using ControleDePedidos.Core.Entidades;
 using ControleDePedidos.Core.Entities.Enums;
 using ControleDePedidos.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 
-namespace ControleDePedidos.Infrastructure.Adapters
+namespace ControleDePedidos.Infrastructure.Gateways
 {
-    internal class PedidoPersistenceAdapter : IPedidoPersistencePort
+    internal class PedidoPersistenceGateway : IPedidoPersistenceGateway
     {
         private ApplicationContext Context;
 
-        public PedidoPersistenceAdapter(ApplicationContext context)
+        public PedidoPersistenceGateway(ApplicationContext context)
         {
             Context = context;
         }

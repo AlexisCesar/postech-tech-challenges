@@ -1,16 +1,16 @@
-﻿using ControleDePedidos.Application.Ports;
+﻿using ControleDePedidos.Application.Gateways;
 using ControleDePedidos.Core.Entidades;
 using ControleDePedidos.Core.Entities.Enums;
 using ControleDePedidos.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 
-namespace ControleDePedidos.Infrastructure.Adapters
+namespace ControleDePedidos.Infrastructure.Gateways
 {
-    internal class ProdutoPersistenceAdapter : IProdutoPersistencePort
+    internal class ProdutoPersistenceGateway : IProdutoPersistenceGateway
     {
         private ApplicationContext Context;
 
-        public ProdutoPersistenceAdapter(ApplicationContext context)
+        public ProdutoPersistenceGateway(ApplicationContext context)
         {
             Context = context;
         }

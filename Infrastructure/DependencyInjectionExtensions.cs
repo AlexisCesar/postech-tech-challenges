@@ -1,7 +1,7 @@
 ﻿using ControleDePedidos.Application.Interfaces;
-using ControleDePedidos.Application.Ports;
+using ControleDePedidos.Application.Gateways;
 using ControleDePedidos.Application;
-using ControleDePedidos.Infrastructure.Adapters;
+using ControleDePedidos.Infrastructure.Gateways;
 using ControleDePedidos.Infrastructure.Data;
 using ControleDePedidos.UseCases.Interfaces;
 using ControleDePedidos.UseCases;
@@ -13,10 +13,10 @@ namespace Microsoft.Extensions.DependencyInjection
         public static IServiceCollection AddInfrastructure (this IServiceCollection services)
         {
             services.AddScoped<IClienteUseCases, ClienteUseCases>();
-            services.AddScoped<IClientePersistencePort, ClientePersistenceAdapter>();
+            services.AddScoped<IClientePersistenceGateway, ClientePersistenceGateway>();
             services.AddScoped<IProdutoUseCases, ProdutoUseCases>();
-            services.AddScoped<IProdutoPersistencePort, ProdutoPersistenceAdapter>();
-            services.AddScoped<IPedidoPersistencePort, PedidoPersistenceAdapter>();
+            services.AddScoped<IProdutoPersistenceGateway, ProdutoPersistenceGateway>();
+            services.AddScoped<IPedidoPersistenceGateway, PedidoPersistenceGateway>();
             services.AddScoped<IAcompanhamentoUseCases, AcompanhamentoUseCases>();
             services.AddScoped<IBuscarPedidoUseCase, BuscarPedidoUseCase>();
             services.AddScoped<IClienteUseCases, ClienteUseCases>();

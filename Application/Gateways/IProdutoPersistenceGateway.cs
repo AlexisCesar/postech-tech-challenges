@@ -1,9 +1,9 @@
 ﻿using ControleDePedidos.Core.Entidades;
 using ControleDePedidos.Core.Entities.Enums;
 
-namespace ControleDePedidos.Application.Ports
+namespace ControleDePedidos.Application.Gateways
 {
-    public interface IProdutoPersistencePort
+    public interface IProdutoPersistenceGateway
     {
         public Task<bool> SaveProdutoAsync(ProdutoAggregate produtoAggregate);
         Task<ProdutoAggregate?> GetProdutoByNomeAsync(string nome);

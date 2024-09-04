@@ -1,6 +1,6 @@
 ﻿using ControleDePedidos.Application.Dtos;
 using ControleDePedidos.Application.Extensions;
-using ControleDePedidos.Application.Ports;
+using ControleDePedidos.Application.Gateways;
 using ControleDePedidos.Core.Entities.Enums;
 using ControleDePedidos.UseCases.Interfaces;
 
@@ -8,13 +8,13 @@ namespace ControleDePedidos.UseCases
 {
     public class BuscarPedidoUseCase : IBuscarPedidoUseCase
     {
-        private readonly IPedidoPersistencePort PedidoPersistencePort;
+        private readonly IPedidoPersistenceGateway PedidoPersistencePort;
         private Dictionary<string, int> PrioridadeStatus = Enum.GetValues(typeof(Status))
                                                                 .Cast<Status>()
                                                                 .Select((status, index) => new { status, index })
                                                                 .ToDictionary(x => x.status.ToString(), x => x.index);
 
-        public BuscarPedidoUseCase(IPedidoPersistencePort pedidoPersistencePort)
+        public BuscarPedidoUseCase(IPedidoPersistenceGateway pedidoPersistencePort)
         {
             PedidoPersistencePort = pedidoPersistencePort;
         }
