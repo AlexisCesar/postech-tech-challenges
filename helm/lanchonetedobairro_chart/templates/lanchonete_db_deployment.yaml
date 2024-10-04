@@ -1,0 +1,46 @@
+apiVersion: apps/v1  # Define a versão da API usada para o Deployment.
+kind: Deployment     # Define o tipo do recurso como Deployment.
+metadata:
+  name: lanchonetedobairro_db  # Nome do Deployment.
+  labels:
+    app: lanchonetedobairro_db               # Rótulo para identificar o Deployment.
+spec:
+  replicas: 1                # Define o número desejado de réplicas de Pods.
+  selector:                  # Critério para encontrar os Pods gerenciados por este Deployment.
+    matchLabels:
+      app: lanchonetedobairro_db             # O Deployment gerenciará os Pods com este rótulo.
+  template:                  # Define o template de Pods que o Deployment gerenciará.
+    metadata:
+      labels:
+        app: lanchonetedobairro_db           # Os Pods gerenciados terão este rótulo.
+    spec:
+      containers:            # Define os containers que serão executados em cada Pod.
+      - name: lanchonetedobairro_db          # Nome do container.
+        image: postgres  # A imagem Docker para o container.
+        ports:
+        - containerPort: 5432  # A porta no container que será exposta.
+        env:
+           - name: POSTGRES_USER
+            valueFrom:
+              configMap:
+                configMapKeyRef:
+                  name: lanchonetedobairro_config_map
+                  key: DB_USER
+           - name: PG_USER
+            valueFrom:
+              configMap:
+                configMapKeyRef:
+                  name: lanchonetedobairro_config_map
+                  key: DB_USER
+           - name: POSTGRES_PASSWORD
+            valueFrom:
+              configMap:
+                configMapKeyRef:
+                  name: lanchonetedobairro_config_map
+                  key: DB_PASSWORD
+  strategy:                  # Define a estratégia de atualização dos Pods.
+    type: RollingUpdate      # O tipo de estratégia de atualização. "RollingUpdate" atualiza gradualmente os pods.
+    rollingUpdate:           # Configurações para a atualização gradual.
+      maxUnavailable: 1      # Quantos Pods podem estar indisponíveis durante a atualização (no máximo 1).
+      maxSurge: 1            # Quantos Pods adicionais podem ser criados acima do número de réplicas durante a atualização.
+

@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: lanchonetedobairro_config_map
+data:
+  DB_HOST: lanchonetedobairro_db
+  DB_PORT: 5432
+  DB_USER: postgres
+  DB_PASSWORD: Posgraduation@109283
+  DB_NAME: controleDePedidos
