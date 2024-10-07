@@ -1,7 +1,8 @@
 apiVersion: apps/v1  # Define a versão da API usada para o Deployment.
 kind: Deployment     # Define o tipo do recurso como Deployment.
 metadata:
-  name: lanchonetedobairro-db  # Nome do Deployment.
+  name: lanchonetedobairro-db 
+  namespace: dev
   labels:
     app: lanchonetedobairro-db               # Rótulo para identificar o Deployment.
 spec:
@@ -19,6 +20,9 @@ spec:
         image: postgres  # A imagem Docker para o container.
         ports:
         - containerPort: 5432  # A porta no container que será exposta.
+        volumeMounts:
+          - mountPath: /var/lib/postgresql/data
+            name: lanchonetedobairro-storage
         env:
         - name: POSTGRES_USER
           valueFrom:
@@ -35,6 +39,10 @@ spec:
             secretKeyRef:
               name: secret
               key: DB_PASSWORD
+      volumes:
+        - name: lanchonetedobairro-storage
+          persistentVolumeClaim:
+            claimName: lanchonetedobairro-pvc
   strategy:                  # Define a estratégia de atualização dos Pods.
     type: RollingUpdate      # O tipo de estratégia de atualização. "RollingUpdate" atualiza gradualmente os pods.
     rollingUpdate:           # Configurações para a atualização gradual.
