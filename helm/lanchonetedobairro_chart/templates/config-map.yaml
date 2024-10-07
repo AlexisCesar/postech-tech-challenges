@@ -4,8 +4,7 @@ metadata:
   name: lanchonetedobairro-config-map
   namespace: dev
 data:
-  DB_HOST: "lanchonetedobairro-db"
+  DB_HOST: "svc-lanchonetedobairro-db"
   DB_PORT: "5432"
   DB_USER: "postgres"
-  DB_PASSWORD: "Posgraduation@109283"
   DB_NAME: "controleDePedidos"
