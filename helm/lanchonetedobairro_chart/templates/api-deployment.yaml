@@ -25,6 +25,11 @@ spec:
               name: lanchonetedobairro-config-map
           - secretRef: 
               name: secret
+        resources:
+          limits:
+            cpu: 200M
+          requests:
+            cpu: 100m  
   strategy:                  # Define a estratégia de atualização dos Pods.
     type: RollingUpdate      # O tipo de estratégia de atualização. "RollingUpdate" atualiza gradualmente os pods.
     rollingUpdate:           # Configurações para a atualização gradual.
