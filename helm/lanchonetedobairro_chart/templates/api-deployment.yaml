@@ -17,7 +17,7 @@ spec:
     spec:
       containers:            # Define os containers que serão executados em cada Pod.
       - name: lanchonetedobairro-api          # Nome do container.
-        image: aleehcr/lanchonetedobairro_api:1
+        image: aleehcr/lanchonetedobairro_api:3
         ports:
         - containerPort: 80 
         envFrom:
@@ -30,6 +30,14 @@ spec:
             cpu: "600m"
           requests:
             cpu: "500m"
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 80
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          failureThreshold: 3
+          timeoutSeconds: 5
   strategy:                  # Define a estratégia de atualização dos Pods.
     type: RollingUpdate      # O tipo de estratégia de atualização. "RollingUpdate" atualiza gradualmente os pods.
     rollingUpdate:           # Configurações para a atualização gradual.

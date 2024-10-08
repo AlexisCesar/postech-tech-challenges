@@ -12,7 +12,12 @@ builder.Services.AddSwaggerGen();
 // Configure DI
 builder.Services.AddInfrastructure();
 
+builder.Services.AddHealthChecks();
+
 var app = builder.Build();
+
+// Adiciona o health check na rota "/health"
+app.MapHealthChecks("/health");
 
 // Run migrations if needed
 using (var scope = app.Services.CreateScope())
