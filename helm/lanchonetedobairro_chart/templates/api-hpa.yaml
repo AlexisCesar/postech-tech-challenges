@@ -1,7 +1,8 @@
 apiVersion: autoscaling/v2              # Versão da API do HPA
 kind: HorizontalPodAutoscaler                  # Tipo de objeto
 metadata:
-  name: lanchonetedobairro-hpa                                  # Nome do HPA
+  name: lanchonetedobairro-hpa     
+  namespace: dev                             # Nome do HPA
 spec:
   scaleTargetRef:
     apiVersion: apps/v1                         # Versão da API do objeto que está sendo escalado

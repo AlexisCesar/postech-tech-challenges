@@ -1,1 +1,1 @@
-🚀 Accessing the API:
+🚀 Accessing the API: localhost:30200/swagger

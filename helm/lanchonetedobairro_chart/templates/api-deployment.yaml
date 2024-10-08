@@ -27,9 +27,9 @@ spec:
               name: secret
         resources:
           limits:
-            cpu: 200M
+            cpu: "600m"
           requests:
-            cpu: 100m  
+            cpu: "500m"
   strategy:                  # Define a estratégia de atualização dos Pods.
     type: RollingUpdate      # O tipo de estratégia de atualização. "RollingUpdate" atualiza gradualmente os pods.
     rollingUpdate:           # Configurações para a atualização gradual.
