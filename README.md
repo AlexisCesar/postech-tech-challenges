@@ -13,16 +13,14 @@ Bruna Gonçalves (RM 356557)
 A API foi projetada para gerenciar pedidos de uma lanchonete de bairro, permitindo que os clientes façam seus pedidos através de um totem. A aplicação é containerizada utilizando Docker, orquestrada por Kubernetes (K8s) para garantir escalabilidade e resiliência, e gerenciada por Helm, que automatiza o deployment e rollbacks no cluster Kubernetes.
 
 ## Navegação
-- [Lanchonete do Bairro API (POS TECH: TECH CHALLENGE - 2a FASE)🚀](#lanchonete-do-bairro-api-pos-tech-tech-challenge---2a-fase)
-  - [Navegação](#navegação)
-  - [Arquitetura](#arquitetura)
-  - [Infraestrutura](#infraestrutura)
-  - [Funcionalidades](#funcionalidades)
-  - [Tecnologias Utilizadas](#tecnologias-utilizadas)
-  - [Opção 1: Rodando o projeto com Kubernetes e Helm](#opção-1-rodando-o-projeto-com-kubernetes-e-helm)
-    - [Acessando o banco de dados com Kubernetes](#acessando-o-banco-de-dados-com-kubernetes)
-  - [Opção 2: Rodando o projeto com Docker-Compose](#opção-2-rodando-o-projeto-com-docker-compose)
-    - [Acessando o banco de dados com Docker](#acessando-o-banco-de-dados-com-docker)
+- [Arquitetura](#arquitetura)
+- [Infraestrutura](#infraestrutura)
+- [Funcionalidades](#funcionalidades)
+- [Tecnologias Utilizadas](#tecnologias-utilizadas)
+- [Opção 1: Rodando o projeto com Kubernetes e Helm](#opção-1-rodando-o-projeto-com-kubernetes-e-helm)
+  - [Acessando o banco de dados com Kubernetes](#acessando-o-banco-de-dados-com-kubernetes)
+- [Opção 2: Rodando o projeto com Docker-Compose](#opção-2-rodando-o-projeto-com-docker-compose)
+  - [Acessando o banco de dados com Docker](#acessando-o-banco-de-dados-com-docker)
 
 ## Arquitetura
 
@@ -31,6 +29,8 @@ A aplicação segue a Arquitetura Limpa, que promove a separação de responsabi
 ## Infraestrutura
 
 Abaixo segue um diagrama da nossa infraestrutura em Kubernetes:
+
+![arquitetura_tc2 drawio](https://github.com/user-attachments/assets/2fb9edec-70a4-41cf-a915-25d385492dfc)
 
 ## Funcionalidades
  
