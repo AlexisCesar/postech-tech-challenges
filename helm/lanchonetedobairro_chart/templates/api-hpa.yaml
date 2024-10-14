@@ -2,12 +2,12 @@ apiVersion: autoscaling/v2              # Versão da API do HPA
 kind: HorizontalPodAutoscaler                  # Tipo de objeto
 metadata:
   name: lanchonetedobairro-hpa     
-  namespace: dev                             # Nome do HPA
+  namespace: {{ .Values.namespace }}                             # Nome do HPA
 spec:
   scaleTargetRef:
     apiVersion: apps/v1                         # Versão da API do objeto que está sendo escalado
     kind: Deployment                             # Tipo do objeto que está sendo escalado (neste caso, um Deployment)
-    name: lanchonetedobairro-api                               # Nome do Deployment a ser escalado
+    name: {{ .Values.apiName }}                               # Nome do Deployment a ser escalado
   minReplicas: 1                                # Número mínimo de réplicas
   maxReplicas: 10                               # Número máximo de réplicas
   metrics:                                      # Lista de métricas a serem monitoradas

@@ -1,10 +1,10 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: lanchonetedobairro-config-map
-  namespace: dev
+  name: {{ .Values.configmap.name }}
+  namespace: {{ .Values.namespace }}
 data:
-  DB_HOST: "svc-lanchonetedobairro-db"
-  DB_PORT: "5432"
-  DB_USER: "postgres"
-  DB_NAME: "controleDePedidos"
+  DB_HOST: "{{ .Values.configmap.data.DB_HOST }}"
+  DB_PORT: "{{ .Values.configmap.data.DB_PORT }}"
+  DB_USER: "{{ .Values.configmap.data.DB_USER }}"
+  DB_NAME: "{{ .Values.configmap.data.DB_NAME }}"

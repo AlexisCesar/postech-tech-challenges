@@ -1,1 +1,3 @@
-🚀 Accessing the API: localhost:30200/swagger
+📼 You're running the chart in {{ .Values.namespace }} environment!
+
+🚀 Accessing the API: localhost:{{ .Values.apiNodePort }}/swagger

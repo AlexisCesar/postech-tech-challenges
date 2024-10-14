@@ -2,10 +2,10 @@ apiVersion: v1
 kind: Service
 metadata:
   name: svc-lanchonetedobairro-db
-  namespace: dev
+  namespace: {{ .Values.namespace }}
 spec:
   type: ClusterIP
   ports:
     - port: 5432
   selector:
-    app: lanchonetedobairro-db
+    app: {{ .Values.dbName }}

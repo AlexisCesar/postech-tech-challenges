@@ -55,10 +55,17 @@ Abaixo segue um diagrama da nossa infraestrutura em Kubernetes:
 - Um cluster local é pre-requisito para rodar esta aplicação localmente, como sugestão:
   - [Docker Desktop](https://www.docker.com/products/docker-desktop/);
   - [Minikube](https://minikube.sigs.k8s.io/docs/start/);
-- 📜 Com o Helm instalado e o cluster local em funcionamento, execute o seguinte comando na raiz do projeto:
+
+- Crie os namespaces de *dev* e *prod* no seu cluster kubernetes com os seguintes comandos:
+```bash
+kubectl create namespace dev 
+kubectl create namespace prod 
+```
+
+- 📜 Com o Helm instalado e o cluster local em funcionamento, execute o seguinte comando na raiz do projeto (se deseja executar em ambiente de *prod*, atualize o comando de acordo):
 
 ```bash
-helm install lanchonetedobairro-release ./helm/lanchonetedobairro_chart/
+helm install lanchonetedobairro-dev ./helm/lanchonetedobairro_chart --values ./helm/lanchonetedobairro_chart/values.yaml -f ./helm/lanchonetedobairro_chart/values-dev.yaml -n dev
 ```
 - Acesse a aplicação através do swagger pelo seguinte endereço: http://localhost:30200/swagger
   
@@ -67,7 +74,7 @@ helm install lanchonetedobairro-release ./helm/lanchonetedobairro_chart/
 É possível acessar o banco de dados conectando diretamente no respectivo pod e utilizando a linha de comando do PostgreSQL (psql), ou, acessar de maneira externa (para conectar ao banco utilizando um SGBD como o PgAdmin) fazendo um forward na porta do Service do banco com o seguinte comando:
  
 ```bash
-kubectl port-forward <nome da service do banco de dados> 5432:5432
+kubectl port-forward svc/svc-lanchonetedobairro-db -n dev 5432:5432
 ```
 
 Agora você pode acessar o banco de dados através de um sistema gerenciador de banco de dados para o PostgreSQL, como o [PgAdmin](https://www.pgadmin.org/download/), no servidor localhost e com a porta padrão do PostgreSQL (5432). As credenciais do banco local podem ser encontrados no arquivo .env na pasta raíz do projeto.
