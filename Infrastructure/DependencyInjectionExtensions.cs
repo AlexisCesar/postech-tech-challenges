@@ -5,6 +5,7 @@ using ControleDePedidos.Infrastructure.Gateways;
 using ControleDePedidos.Infrastructure.Data;
 using ControleDePedidos.UseCases.Interfaces;
 using ControleDePedidos.UseCases;
+using ControleDePedidos.UseCases.Gateways;
 
 namespace Microsoft.Extensions.DependencyInjection
 {
@@ -23,6 +24,7 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddScoped<IPagamentoUseCases, PagamentoUseCases>();
             services.AddScoped<IProdutoUseCases, ProdutoUseCases>();
             services.AddScoped<IRealizarPedidoUseCase, RealizarPedidoUseCase>();
+            services.AddScoped<IApiPagamentoGateway, MercadoPagoPagamentoGateway>();
 
             services.AddDbContext<ApplicationContext>();
 

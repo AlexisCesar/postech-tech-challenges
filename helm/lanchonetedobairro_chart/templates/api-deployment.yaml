@@ -17,12 +17,14 @@ spec:
     spec:
       containers:            # Define os containers que serão executados em cada Pod.
       - name: lanchonetedobairro-api          # Nome do container.
-        image: aleehcr/lanchonetedobairro_api:3
+        image: aleehcr/lanchonetedobairro_api:integration_v3
         ports:
         - containerPort: 80 
         envFrom:
           - configMapRef: 
               name: lanchonetedobairro-config-map
+          - configMapRef: 
+              name: mercadopago-config-map
           - secretRef: 
               name: secret
         resources:

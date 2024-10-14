@@ -51,7 +51,6 @@ namespace ControleDePedidos.UseCases
             {
                 IdPedido = pedido.Id,
                 CodigoAcompanhamento = pedido.Acompanhamento.CodigoAcompanhamento,
-                UrlPagamento = "Mock URL de pagamaneto",
                 IdPagamento = pedido.Pagamento.Id
             };
         }

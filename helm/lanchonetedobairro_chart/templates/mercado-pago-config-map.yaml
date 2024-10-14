@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mercadopago-config-map
+  namespace: dev
+data:
+  USERID: "1954504909"
+  ACCESS_KEY: ""
+  NOTIFICATION_URL: "https://f621-2804-7f0-6802-5844-3c29-769-5be8-853d.ngrok-free.app"
+  POS_ID: "TOTEM1"

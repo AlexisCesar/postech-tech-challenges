@@ -4,6 +4,7 @@ using ControleDePedidos.Application.Exceptions.Pagamento;
 using ControleDePedidos.Application.Exceptions.Pedido;
 using ControleDePedidos.Application.Exceptions.Produto;
 using ControleDePedidos.Core.Entities.Enums;
+using ControleDePedidos.Infrastructure.Models.MercadoPagoAPI;
 using ControleDePedidos.UseCases.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -18,9 +19,9 @@ namespace ControleDePedidos.API.Controllers
         private readonly IAcompanhamentoUseCases AcompanhamentoUseCases;
         private readonly IBuscarPedidoUseCase BuscarPedidoUseCase;
 
-        public PedidoController(IRealizarPedidoUseCase realizarPedidoUseCase, 
-                                IPagamentoUseCases pagamentoUseCases, 
-                                IAcompanhamentoUseCases acompanhamentoUseCases, 
+        public PedidoController(IRealizarPedidoUseCase realizarPedidoUseCase,
+                                IPagamentoUseCases pagamentoUseCases,
+                                IAcompanhamentoUseCases acompanhamentoUseCases,
                                 IBuscarPedidoUseCase buscarPedidoUseCase)
         {
             RealizarPedidoUseCase = realizarPedidoUseCase;
@@ -41,7 +42,9 @@ namespace ControleDePedidos.API.Controllers
             {
                 var pedidoRealizadoDto = await RealizarPedidoUseCase.RealizarPedido(pedidoDto);
 
-                return Ok(pedidoRealizadoDto);
+                var pedidoQrCodeDto = await PagamentoUseCases.GerarQrCodeParaPagamento(pedidoRealizadoDto.IdPedido);
+
+                return Ok(pedidoQrCodeDto);
             }
             catch (ProdutoNaoCadastradoException ex)
             {
@@ -57,9 +60,11 @@ namespace ControleDePedidos.API.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> ConfirmaPagamento([FromRoute] Guid idPedido)
+        public async Task<IActionResult> ConfirmaPagamento([FromRoute] Guid idPedido, [FromBody] MPNotificacaoDePagamento notificacao)
         {
             if (idPedido == Guid.Empty) return BadRequest("O id do pagamento nao pode ser nulo.");
+
+            if (string.IsNullOrEmpty(notificacao.topic) || notificacao.topic != "payment") return Ok();
 
             try
             {
