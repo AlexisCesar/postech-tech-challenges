@@ -30,7 +30,7 @@ A aplicação segue a Arquitetura Limpa, que promove a separação de responsabi
 
 Abaixo segue um diagrama da nossa infraestrutura em Kubernetes:
 
-![arquitetura_tc2 drawio](https://github.com/user-attachments/assets/2fb9edec-70a4-41cf-a915-25d385492dfc)
+![arquitetura_tc2 drawio](https://github.com/user-attachments/assets/8a06634a-1f2a-455c-8bdb-df11c46d43b2)
 
 ## Funcionalidades
  
