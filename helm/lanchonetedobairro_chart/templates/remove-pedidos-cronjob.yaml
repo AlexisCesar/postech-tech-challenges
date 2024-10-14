@@ -1,0 +1,33 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: remove-pedidos-cronjob
+  namespace: dev
+spec:
+  schedule: "*/5 * * * *" 
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: remove-pedidos
+            image: aleehcr/lanchonetedobairro_remover_pedidos_job:1
+            env:
+            - name: POSTGRES_HOST
+              value: "svc-lanchonetedobairro-db"
+            - name: POSTGRES_USER
+              valueFrom:
+                configMapKeyRef:
+                  name: lanchonetedobairro-config-map
+                  key: DB_USER
+            - name: PG_USER
+              valueFrom:
+                configMapKeyRef:
+                  name: lanchonetedobairro-config-map
+                  key: DB_USER
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: secret
+                  key: DB_PASSWORD
+          restartPolicy: OnFailure
