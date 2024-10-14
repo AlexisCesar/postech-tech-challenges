@@ -49,8 +49,11 @@ Abaixo segue um diagrama da nossa infraestrutura em Kubernetes:
 - **Helm**: Gerenciamento de de pacotes kubernetes.
 - **Docker Desktop**: Simular cluster local do ambiente Kubernetes.
 - **Lens**: Interface gráfica para gerenciar cluster Kubernetes.
+- **Ngrok**: Necessário para gerar url temporária para os Webhooks da integração com Mercado Pago em ambiente local.
   
 ## Opção 1: Rodando o projeto com Kubernetes e Helm
+> ⚠ Para que a integração com o Mercado Pago funcione e seja possível utilizar o endpoint 'Realizar Pedido' para gerar QR codes, é necessário uma integração criada e configurada para QR Code Dinâmico através do [Mercado Pago Developers](https://www.mercadopago.com.br/developers/).
+
 > ℹ Na raíz do projeto existe um script Powershell (runApplicationK8s.ps1) que executa todos os passos descritos abaixo. Basta executar o script na pasta raíz do projeto com o comando:
 > ```./runApplicationK8s.ps1 ```
 - ⛵ [Helm](https://helm.sh/pt/docs/intro/install/) é um pré-requisito para rodar esta aplicação localmente
