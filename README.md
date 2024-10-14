@@ -52,7 +52,7 @@ Abaixo segue um diagrama da nossa infraestrutura em Kubernetes:
 - **Ngrok**: Necessário para gerar url temporária para os Webhooks da integração com Mercado Pago em ambiente local.
   
 ## Opção 1: Rodando o projeto com Kubernetes e Helm
-> ⚠ Para que a integração com o Mercado Pago funcione e seja possível utilizar o endpoint 'Realizar Pedido' para gerar QR codes, é necessário uma integração criada e configurada para QR Code Dinâmico através do [Mercado Pago Developers](https://www.mercadopago.com.br/developers/).
+> ⚠ Para que a integração com o Mercado Pago funcione e seja possível utilizar o endpoint 'Realizar Pedido' para gerar QR codes, é necessário uma integração criada e configurada para QR Code Dinâmico através do [Mercado Pago Developers](https://www.mercadopago.com.br/developers/). Para mais detalhes de como configurar a integração consulte nossa [página sobre a integração na Wiki](https://github.com/AlexisCesar/postech-tech-challenges/wiki/Integra%C3%A7%C3%A3o-com-Mercado-Pago).
 
 > ℹ Na raíz do projeto existe um script Powershell (runApplicationK8s.ps1) que executa todos os passos descritos abaixo. Basta executar o script na pasta raíz do projeto com o comando:
 > ```./runApplicationK8s.ps1 ```
