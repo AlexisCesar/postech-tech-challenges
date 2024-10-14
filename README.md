@@ -51,6 +51,8 @@ Abaixo segue um diagrama da nossa infraestrutura em Kubernetes:
 - **Lens**: Interface gráfica para gerenciar cluster Kubernetes.
   
 ## Opção 1: Rodando o projeto com Kubernetes e Helm
+> ℹ Na raíz do projeto existe um script Powershell (runApplicationK8s.ps1) que executa todos os passos descritos abaixo. Basta executar o script na pasta raíz do projeto com o comando:
+> ```./runApplicationK8s.ps1 ```
 - ⛵ [Helm](https://helm.sh/pt/docs/intro/install/) é um pré-requisito para rodar esta aplicação localmente
 - Um cluster local é pre-requisito para rodar esta aplicação localmente, como sugestão:
   - [Docker Desktop](https://www.docker.com/products/docker-desktop/);
