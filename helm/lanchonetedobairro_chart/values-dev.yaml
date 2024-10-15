@@ -11,7 +11,7 @@ configmap:
 # Mercado Pago config map
 mpConfigMap:
   data:
-    USERID: 1954504909
-    ACCESS_KEY: 
-    NOTIFICATION_URL: https://f621-2804-7f0-6802-5844-3c29-769-5be8-853d.ngrok-free.app
-    POS_ID: TOTEM1
+    USERID: "1954504909"
+    ACCESS_KEY: "APP_USR-3708502903714482-101109-0c69539220e310f4f163b5fdcbe40bec-1954504909"
+    NOTIFICATION_URL: "https://93e1-2804-7f0-6802-a18c-201f-1648-a8d4-875b.ngrok-free.app"
+    POS_ID: "TOTEM1"
