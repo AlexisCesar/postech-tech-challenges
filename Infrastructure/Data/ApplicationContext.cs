@@ -1,9 +1,9 @@
-﻿using ControleDePedidos.Dominio.Entidades;
+﻿using ControleDePedidos.Core.Entidades;
 using Microsoft.EntityFrameworkCore;
 
 namespace ControleDePedidos.Infrastructure.Data
 {
-    public class ApplicationContext : DbContext
+    internal class ApplicationContext : DbContext
     {
         public ApplicationContext() { }
 
@@ -27,9 +27,15 @@ namespace ControleDePedidos.Infrastructure.Data
             modelBuilder.Entity<ClienteAggregate>(entity =>
             {
                 entity.HasKey(e => e.Id);
+
                 entity.OwnsOne(e => e.Email, email =>
                 {
                     email.Property(e => e.Endereco).HasColumnName("Email");
+                });
+
+                entity.OwnsOne(e => e.CPF, cpf =>
+                {
+                    cpf.Property(e => e.Value).HasColumnName("CPF");
                 });
             });
 
@@ -43,9 +49,18 @@ namespace ControleDePedidos.Infrastructure.Data
                     .HasDefaultValueSql("nextval('\"Seq_CodAcompanhamento\"')");
             });
 
+            modelBuilder.Entity<ProdutoAggregate>(Entity =>
+            {
+                Entity.HasKey(e => e.Id);
+
+                Entity.OwnsOne(e => e.Preco, preco =>
+                {
+                    preco.Property(e => e.Value).HasColumnName("Preco");
+                });
+            });
+
             modelBuilder.Entity<ItemPedido>(Entity => Entity.HasKey(e => e.Id));
             modelBuilder.Entity<PagamentoAggregate>(Entity => Entity.HasKey(e => e.Id));
-            modelBuilder.Entity<ProdutoAggregate>(Entity => Entity.HasKey(e => e.Id));
             modelBuilder.Entity<PedidoAggregate>(Entity => Entity.HasKey(e => e.Id));
         }
     }

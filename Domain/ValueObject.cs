@@ -1,4 +1,4 @@
-﻿namespace ControleDePedidos.Dominio
+﻿namespace ControleDePedidos.Core
 {
     public abstract class ValueObject
     {

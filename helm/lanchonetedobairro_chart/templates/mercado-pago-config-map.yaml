@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Values.mpConfigMap.name }}
+  namespace: {{ .Values.namespace }}
+data:
+  USERID: "{{ .Values.mpConfigMap.data.USERID }}"
+  ACCESS_KEY: "{{ .Values.mpConfigMap.data.ACCESS_KEY }}"
+  NOTIFICATION_URL: "{{ .Values.mpConfigMap.data.NOTIFICATION_URL }}"
+  POS_ID: "{{ .Values.mpConfigMap.data.POS_ID }}"

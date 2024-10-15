@@ -1,4 +1,4 @@
-﻿namespace ControleDePedidos.Dominio.Entities.Enums
+﻿namespace ControleDePedidos.Core.Entities.Enums
 {
     public enum Status
     {

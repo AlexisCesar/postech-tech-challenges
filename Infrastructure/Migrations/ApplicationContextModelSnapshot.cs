@@ -25,7 +25,7 @@ namespace ControleDePedidos.Infrastructure.Migrations
             modelBuilder.HasSequence<int>("Seq_CodAcompanhamento")
                 .StartsAt(10L);
 
-            modelBuilder.Entity("ControleDePedidos.Dominio.Entidades.AcompanhamentoAggregate", b =>
+            modelBuilder.Entity("ControleDePedidos.Core.Entidades.AcompanhamentoAggregate", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -44,14 +44,11 @@ namespace ControleDePedidos.Infrastructure.Migrations
                     b.ToTable("Acompanhamento");
                 });
 
-            modelBuilder.Entity("ControleDePedidos.Dominio.Entidades.ClienteAggregate", b =>
+            modelBuilder.Entity("ControleDePedidos.Core.Entidades.ClienteAggregate", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
-
-                    b.Property<string>("CPF")
-                        .HasColumnType("text");
 
                     b.Property<string>("Nome")
                         .HasColumnType("text");
@@ -61,7 +58,7 @@ namespace ControleDePedidos.Infrastructure.Migrations
                     b.ToTable("Cliente");
                 });
 
-            modelBuilder.Entity("ControleDePedidos.Dominio.Entidades.ItemPedido", b =>
+            modelBuilder.Entity("ControleDePedidos.Core.Entidades.ItemPedido", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -88,7 +85,7 @@ namespace ControleDePedidos.Infrastructure.Migrations
                     b.ToTable("ItemPedido");
                 });
 
-            modelBuilder.Entity("ControleDePedidos.Dominio.Entidades.PagamentoAggregate", b =>
+            modelBuilder.Entity("ControleDePedidos.Core.Entidades.PagamentoAggregate", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -102,7 +99,7 @@ namespace ControleDePedidos.Infrastructure.Migrations
                     b.ToTable("Pagamento");
                 });
 
-            modelBuilder.Entity("ControleDePedidos.Dominio.Entidades.PedidoAggregate", b =>
+            modelBuilder.Entity("ControleDePedidos.Core.Entidades.PedidoAggregate", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -113,6 +110,9 @@ namespace ControleDePedidos.Infrastructure.Migrations
 
                     b.Property<Guid?>("ClienteId")
                         .HasColumnType("uuid");
+
+                    b.Property<DateTime>("HorarioRecebimento")
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<Guid>("PagamentoId")
                         .HasColumnType("uuid");
@@ -128,7 +128,7 @@ namespace ControleDePedidos.Infrastructure.Migrations
                     b.ToTable("Pedido");
                 });
 
-            modelBuilder.Entity("ControleDePedidos.Dominio.Entidades.ProdutoAggregate", b =>
+            modelBuilder.Entity("ControleDePedidos.Core.Entidades.ProdutoAggregate", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -143,17 +143,32 @@ namespace ControleDePedidos.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<double>("Preco")
-                        .HasColumnType("double precision");
-
                     b.HasKey("Id");
 
                     b.ToTable("Produto");
                 });
 
-            modelBuilder.Entity("ControleDePedidos.Dominio.Entidades.ClienteAggregate", b =>
+            modelBuilder.Entity("ControleDePedidos.Core.Entidades.ClienteAggregate", b =>
                 {
-                    b.OwnsOne("ControleDePedidos.Dominio.Entities.ValueObjects.Email", "Email", b1 =>
+                    b.OwnsOne("ControleDePedidos.Core.Entities.ValueObjects.CPF", "CPF", b1 =>
+                        {
+                            b1.Property<Guid>("ClienteAggregateId")
+                                .HasColumnType("uuid");
+
+                            b1.Property<string>("Value")
+                                .IsRequired()
+                                .HasColumnType("text")
+                                .HasColumnName("CPF");
+
+                            b1.HasKey("ClienteAggregateId");
+
+                            b1.ToTable("Cliente");
+
+                            b1.WithOwner()
+                                .HasForeignKey("ClienteAggregateId");
+                        });
+
+                    b.OwnsOne("ControleDePedidos.Core.Entities.ValueObjects.Email", "Email", b1 =>
                         {
                             b1.Property<Guid>("ClienteAggregateId")
                                 .HasColumnType("uuid");
@@ -171,16 +186,18 @@ namespace ControleDePedidos.Infrastructure.Migrations
                                 .HasForeignKey("ClienteAggregateId");
                         });
 
+                    b.Navigation("CPF");
+
                     b.Navigation("Email");
                 });
 
-            modelBuilder.Entity("ControleDePedidos.Dominio.Entidades.ItemPedido", b =>
+            modelBuilder.Entity("ControleDePedidos.Core.Entidades.ItemPedido", b =>
                 {
-                    b.HasOne("ControleDePedidos.Dominio.Entidades.PedidoAggregate", null)
+                    b.HasOne("ControleDePedidos.Core.Entidades.PedidoAggregate", null)
                         .WithMany("Itens")
                         .HasForeignKey("PedidoAggregateId");
 
-                    b.HasOne("ControleDePedidos.Dominio.Entidades.ProdutoAggregate", "Produto")
+                    b.HasOne("ControleDePedidos.Core.Entidades.ProdutoAggregate", "Produto")
                         .WithMany()
                         .HasForeignKey("ProdutoId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -189,19 +206,19 @@ namespace ControleDePedidos.Infrastructure.Migrations
                     b.Navigation("Produto");
                 });
 
-            modelBuilder.Entity("ControleDePedidos.Dominio.Entidades.PedidoAggregate", b =>
+            modelBuilder.Entity("ControleDePedidos.Core.Entidades.PedidoAggregate", b =>
                 {
-                    b.HasOne("ControleDePedidos.Dominio.Entidades.AcompanhamentoAggregate", "Acompanhamento")
+                    b.HasOne("ControleDePedidos.Core.Entidades.AcompanhamentoAggregate", "Acompanhamento")
                         .WithMany()
                         .HasForeignKey("AcompanhamentoId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ControleDePedidos.Dominio.Entidades.ClienteAggregate", "Cliente")
+                    b.HasOne("ControleDePedidos.Core.Entidades.ClienteAggregate", "Cliente")
                         .WithMany()
                         .HasForeignKey("ClienteId");
 
-                    b.HasOne("ControleDePedidos.Dominio.Entidades.PagamentoAggregate", "Pagamento")
+                    b.HasOne("ControleDePedidos.Core.Entidades.PagamentoAggregate", "Pagamento")
                         .WithMany()
                         .HasForeignKey("PagamentoId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -214,7 +231,30 @@ namespace ControleDePedidos.Infrastructure.Migrations
                     b.Navigation("Pagamento");
                 });
 
-            modelBuilder.Entity("ControleDePedidos.Dominio.Entidades.PedidoAggregate", b =>
+            modelBuilder.Entity("ControleDePedidos.Core.Entidades.ProdutoAggregate", b =>
+                {
+                    b.OwnsOne("ControleDePedidos.Core.Entities.ValueObjects.Preco", "Preco", b1 =>
+                        {
+                            b1.Property<int>("ProdutoAggregateId")
+                                .HasColumnType("integer");
+
+                            b1.Property<double>("Value")
+                                .HasColumnType("double precision")
+                                .HasColumnName("Preco");
+
+                            b1.HasKey("ProdutoAggregateId");
+
+                            b1.ToTable("Produto");
+
+                            b1.WithOwner()
+                                .HasForeignKey("ProdutoAggregateId");
+                        });
+
+                    b.Navigation("Preco")
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("ControleDePedidos.Core.Entidades.PedidoAggregate", b =>
                 {
                     b.Navigation("Itens");
                 });

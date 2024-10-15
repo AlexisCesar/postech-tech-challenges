@@ -1,0 +1,17 @@
+namespace: dev
+
+# Config map
+configmap:
+  data:
+    DB_HOST: svc-lanchonetedobairro-db
+    DB_PORT: 5432
+    DB_USER: postgres
+    DB_NAME: controleDePedidos 
+
+# Mercado Pago config map
+mpConfigMap:
+  data:
+    USERID: 1954504909
+    ACCESS_KEY: 
+    NOTIFICATION_URL: https://f621-2804-7f0-6802-5844-3c29-769-5be8-853d.ngrok-free.app
+    POS_ID: TOTEM1

@@ -1,7 +1,7 @@
 ﻿using ControleDePedidos.Application.Dtos;
 using ControleDePedidos.Application.Exceptions.Produto;
 using ControleDePedidos.Application.Interfaces;
-using ControleDePedidos.Dominio.Entities.Enums;
+using ControleDePedidos.Core.Entities.Enums;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ControleDePedidos.API.Controllers
@@ -10,9 +10,9 @@ namespace ControleDePedidos.API.Controllers
     [Route("api/v1/[controller]")]
     public class ProdutoController : Controller
     {
-        private readonly IProdutoApplication ProdutoApplication;
+        private readonly IProdutoUseCases ProdutoApplication;
 
-        public ProdutoController(IProdutoApplication produtoApplication)
+        public ProdutoController(IProdutoUseCases produtoApplication)
         {
             ProdutoApplication = produtoApplication;
         }

@@ -1,4 +1,4 @@
-﻿namespace ControleDePedidos.Dominio.Entidades
+﻿namespace ControleDePedidos.Core.Entidades
 {
     public class PagamentoAggregate : Entity<Guid>, IAggregateRoot
     {

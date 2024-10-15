@@ -1,4 +1,4 @@
-﻿using ControleDePedidos.Dominio.Entities.Enums;
+﻿using ControleDePedidos.Core.Entities.Enums;
 using System.ComponentModel.DataAnnotations;
 
 namespace ControleDePedidos.Application.Dtos

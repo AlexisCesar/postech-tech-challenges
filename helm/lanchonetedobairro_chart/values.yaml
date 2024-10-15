@@ -1,0 +1,38 @@
+namespace: default
+
+# API
+apiName: lanchonetedobairro-api
+apiImage: 
+  name: aleehcr/lanchonetedobairro_api
+  tag: integration_v3
+apiNodePort: 30200
+
+# DB
+dbName: lanchonetedobairro-db
+
+# Cronjobs
+removerPedidosImage: 
+  name: aleehcr/lanchonetedobairro_remover_pedidos_job
+  tag: 1
+
+# Config map
+configmap:
+  name: lanchonetedobairro-config-map
+  data:
+    DB_HOST: ""
+    DB_PORT: ""
+    DB_USER: ""
+    DB_NAME: "" 
+
+# Mercado Pago config map
+mpConfigMap:
+  name: mercadopago-config-map
+  data:
+    USERID: ""
+    ACCESS_KEY: ""
+    NOTIFICATION_URL: ""
+    POS_ID: ""
+
+# Secret
+secret:
+  name: secret

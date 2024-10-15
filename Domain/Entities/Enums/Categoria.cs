@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace ControleDePedidos.Dominio.Entities.Enums
+namespace ControleDePedidos.Core.Entities.Enums
 {
     [JsonConverter(typeof(JsonStringEnumConverter))]
     public enum Categoria

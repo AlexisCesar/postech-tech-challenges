@@ -1,4 +1,4 @@
-﻿namespace ControleDePedidos.Dominio
+﻿namespace ControleDePedidos.Core
 {
     public class Entity<T>
     {
