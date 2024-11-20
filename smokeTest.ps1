@@ -1,0 +1,1 @@
+Write-Host "Running smoke tests on $env:PROJECT_NAME"
