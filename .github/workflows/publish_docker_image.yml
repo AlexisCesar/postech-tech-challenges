@@ -1,3 +1,4 @@
+#test
 name: Publish Docker image
 
 on:
@@ -18,28 +19,10 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Log in to Docker Hub
-        uses: docker/login-action@v2
+        uses: docker/login-action@f4ef78c080cd8ba55a85445d5b36e214a81df20a
         with:
           username: ${{ secrets.DOCKERHUB_EMAIL }}
           password: ${{ secrets.DOCKERHUB_PASS }}
-
-      - name: Calculate Docker image hash
-        id: digest
-        run: |
-          echo "Calculating hash for source code..."
-          # Calculando o hash de arquivos relevantes (Dockerfile e código fonte)
-          export IMAGE_HASH=$(cat Dockerfile $(find ./src -type f) | sha256sum | cut -d' ' -f1)
-          echo "IMAGE_HASH=${IMAGE_HASH}" >> $GITHUB_ENV
-
-      - name: Check if image already exists on Docker Hub
-        id: check-image
-        run: |
-          IMAGE_EXISTS=$(curl -s "https://hub.docker.com/v2/repositories/aleehcr/lanchonetedobairro_api/tags/${IMAGE_HASH}" | jq -r .name)
-          if [ "$IMAGE_EXISTS" == "$IMAGE_HASH" ]; then
-            echo "Image with this hash already exists, skipping push."
-            exit 0
-          fi
-          echo "Image does not exist, continuing."
 
       - name: Extract metadata (tags, labels) for Docker
         id: meta
@@ -47,14 +30,35 @@ jobs:
         with:
           images: aleehcr/lanchonetedobairro_api
           
+      - name: Calculate image hash based on source code
+        id: hash
+        run: |
+          echo "Calculating hash for source code..."
+          export IMAGE_HASH=$(tar -cf - . | sha256sum | cut -d' ' -f1)
+          echo "IMAGE_HASH=${IMAGE_HASH}" >> $GITHUB_ENV
+          echo "Generated hash: $IMAGE_HASH"
+
+      - name: Check if image already exists on Docker Hub
+        id: check-image
+        run: |
+          # Verificar se a imagem com o hash já existe
+          IMAGE_EXISTS=$(docker manifest inspect aleehcr/lanchonetedobairro_api:${{ env.IMAGE_HASH }} > /dev/null 2>&1 && echo "yes" || echo "no")
+          
+          if [ "$IMAGE_EXISTS" == "yes" ]; then
+            echo "Image with hash ${{ env.IMAGE_HASH }} already exists on Docker Hub, skipping push."
+            exit 0  # Não faz o push se a imagem já existe
+          else
+            echo "Image with hash ${{ env.IMAGE_HASH }} does not exist on Docker Hub, continuing with push."
+          fi
+
       - name: Build and push Docker image
         id: push
-        uses: docker/build-push-action@v4
+        uses: docker/build-push-action@3b5e8027fcad23fda98b2e3ac259d8d67585f671
         with:
           context: .
           file: ./Dockerfile
           push: true
-          tags: aleehcr/lanchonetedobairro_api:${{ env.IMAGE_HASH }}
+          tags: aleehcr/lanchonetedobairro_api:${{ env.IMAGE_HASH }}  
           labels: ${{ steps.meta.outputs.labels }}
 
       - name: Generate artifact attestation
