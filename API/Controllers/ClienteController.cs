@@ -54,7 +54,7 @@ namespace ControleDePedidos.Controllers
             try
             {
                 var cliente = await ClientApplication.GetClienteByCPFAsync(cpf);
-                return cliente == null ? NotFound("Cliente nao encontrado.") : Ok(cliente);
+                return cliente == null ? NotFound("Cliente nao foi encontrado.") : Ok(cliente);
             }
             catch (GetClienteByCpfException ex)
             {
