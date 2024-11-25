@@ -1,8 +1,8 @@
 name: Publish Docker image
 
 on:
-  push:
-    branches: ["develop"]
+  release:
+    types: [published]
 
 jobs:
   push_to_registry:
@@ -23,26 +23,6 @@ jobs:
           username: ${{ secrets.DOCKERHUB_EMAIL }}
           password: ${{ secrets.DOCKERHUB_PASS }}
 
-      - name: Calculate image hash
-        id: calculate-hash
-        run: |
-          IMAGE_HASH=$(tar -cf - ./API Dockerfile | sha256sum | cut -d' ' -f1)
-          echo "IMAGE_HASH=${IMAGE_HASH}" >> $GITHUB_ENV
-
-      - name: Check if image already exists
-        id: check-image
-        run: |
-          IMAGE_EXISTS=$(curl -s "https://hub.docker.com/v2/repositories/aleehcr/lanchonetedobairro_api/tags" \
-            | jq -r ".results[].name" \
-            | grep -w "${{ env.IMAGE_HASH }}" || true)
-
-          if [ -n "$IMAGE_EXISTS" ]; then
-            echo "Image already exists, skipping push."
-            exit 0
-          fi
-
-          echo "Image does not exist, continuing."
-
       - name: Build and push Docker image
         id: push
         uses: docker/build-push-action@v4
@@ -50,4 +30,5 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: aleehcr/lanchonetedobairro_api:${{ env.IMAGE_HASH }}
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
