@@ -30,7 +30,7 @@ A aplicação segue a Arquitetura Limpa, que promove a separação de responsabi
 ## Infraestrutura
 
 Diagrama da infraestrutura na nuvem AWS:
-![infra_aws](https://github.com/user-attachments/assets/6122d545-5d76-493e-baf2-2d78e596ee00)
+![infra_aws](https://github.com/user-attachments/assets/08a2440c-1819-4eb5-ab13-787836c0c20b)
 
 ## Funcionalidades
  
