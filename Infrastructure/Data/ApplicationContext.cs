@@ -47,6 +47,8 @@ namespace ControleDePedidos.Infrastructure.Data
                 Entity.HasKey(e => e.Id);
                 Entity.Property(e => e.CodigoAcompanhamento)
                     .HasDefaultValueSql("nextval('\"Seq_CodAcompanhamento\"')");
+                Entity.HasIndex(e => e.Status)
+                    .HasDatabaseName("IX_Status");
             });
 
             modelBuilder.Entity<ProdutoAggregate>(Entity =>
@@ -57,6 +59,8 @@ namespace ControleDePedidos.Infrastructure.Data
                 {
                     preco.Property(e => e.Value).HasColumnName("Preco");
                 });
+                Entity.HasIndex(e => e.Categoria)
+                    .HasDatabaseName("IX_Categoria");
             });
 
             modelBuilder.Entity<ItemPedido>(Entity => Entity.HasKey(e => e.Id));
