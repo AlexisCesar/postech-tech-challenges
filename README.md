@@ -21,7 +21,7 @@ A API foi projetada para gerenciar pedidos de uma lanchonete de bairro, permitin
 - [Tecnologias Utilizadas](#tecnologias-utilizadas)
 - [Rodando o projeto com Docker-Compose](#rodando-o-projeto-com-docker-compose)
   - [Acessando o banco de dados com Docker](#acessando-o-banco-de-dados-com-docker)
-- [Subindo a infraestrutura na AWS](#subindo-a-infraestrutura-na-aws)
+- [Subindo a infraestrutura na AWS com Terraform](#subindo-a-infraestrutura-na-aws-com-terraform)
 
 ## Arquitetura
 
@@ -48,6 +48,7 @@ Diagrama da infraestrutura na nuvem AWS:
 - **Kubernetes**: Orquestração de contêineres.
 - **Helm**: Gerenciamento de de pacotes kubernetes.
 - **EKS**: Cluster Kubernetes na nuvem da AWS.
+- **Terraform**: Automação de criação de recursos em provedores de nuvem.
 
 ## Rodando o projeto com Docker-Compose
 > ⚠ Para que a integração com o Mercado Pago funcione e seja possível utilizar o endpoint 'Realizar Pedido' para gerar QR codes, é necessário uma integração criada e configurada para QR Code Dinâmico através do [Mercado Pago Developers](https://www.mercadopago.com.br/developers/). Para mais detalhes de como configurar a integração consulte nossa [página sobre a integração na Wiki](https://github.com/AlexisCesar/postech-tech-challenges/wiki/Integra%C3%A7%C3%A3o-com-Mercado-Pago).
@@ -68,7 +69,7 @@ docker compose -f docker-compose-db-exposed.yaml up
 ```
 Agora você pode acessar o banco de dados através de um sistema gerenciador de banco de dados para o PostgreSQL, como o [PgAdmin](https://www.pgadmin.org/download/), no servidor localhost e com a porta padrão do PostgreSQL (5432). As credenciais do banco local podem ser encontrados no arquivo .env na pasta raíz do projeto.
 
-### Subindo a infraestrutura na AWS
+## Subindo a infraestrutura na AWS com Terraform
 Para subir a infraestrutura do sistema no ambiente cloud, siga os passos mencionados nos seguintes repositórios:
 - [postech-tc-eks](https://github.com/AlexisCesar/postech-tc-eks)
 - [postech-tc-rds](https://github.com/AlexisCesar/postech-tc-rds)
