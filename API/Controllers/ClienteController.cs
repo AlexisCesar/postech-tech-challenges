@@ -27,7 +27,6 @@ namespace ControleDePedidos.Controllers
             try
             {
                 await ClientApplication.CadastraClienteAsync(cadastraClienteDto);
-
                 return Ok(cadastraClienteDto);
             }
             catch (CadastrarClienteException ex)
@@ -40,7 +39,7 @@ namespace ControleDePedidos.Controllers
             }
             catch
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, "Erro ao processar a requisição, tente novamente mais tarde.");
+                return StatusCode(StatusCodes.Status500InternalServerError, "Erro ao processar a requisicao, tente novamente mais tarde.");
             }
         }
 
@@ -55,7 +54,7 @@ namespace ControleDePedidos.Controllers
             try
             {
                 var cliente = await ClientApplication.GetClienteByCPFAsync(cpf);
-                return cliente == null ? NotFound("Cliente nao encontrado.") : Ok(cliente);
+                return cliente == null ? NotFound("Cliente nao foi encontrado.") : Ok(cliente);
             }
             catch (GetClienteByCpfException ex)
             {
@@ -63,7 +62,7 @@ namespace ControleDePedidos.Controllers
             }
             catch
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, "Erro ao processar a requisição, tente novamente mais tarde.");
+                return StatusCode(StatusCodes.Status500InternalServerError, "Erro ao processar a requisiï¿½ï¿½o, tente novamente mais tarde.");
             }
         }
     }
