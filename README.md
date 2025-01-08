@@ -6,7 +6,7 @@
 
 Seja bem vindo ao repositório da Lanchonete do Bairro API! Este é um desafio proposto pela PósTech (Fiap + Alura) na terceira fase da pós graduação de Software Architecture (8SOAT).
 
-📼 Vídeo de demonstração do projeto desta fase: TBD
+📼 Vídeo de demonstração do projeto desta fase: https://www.youtube.com/watch?v=1xkGzih4IjA
 
 Integrantes do grupo:<br>
 Alexis Cesar (RM 356558)<br>
