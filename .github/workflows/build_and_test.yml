@@ -1,8 +1,6 @@
 name: Build and test .NET
 
 on:
-  # push:
-    # branches: [ "master", "develop", "actions", "f_*" ]
   pull_request:
     branches: [ "master", "develop", "actions", "f_*"]
 
@@ -16,21 +14,24 @@ jobs:
       uses: actions/setup-dotnet@v4
       with:
         dotnet-version: 8.0.x
-    - name: Restore dependencies
-      run: dotnet restore
-    - name: Build
-      run: dotnet build --no-restore
-    - name: Test
-      run: dotnet test --no-build --verbosity normal
     - name: Install coverlet
       run: dotnet tool install --global coverlet.console
     - name: Install sonarscanner
       run: dotnet tool install --global dotnet-sonarscanner
+    - name: Unshallow
+      run: git fetch --unshallow
     - name: Run sonarscanner
-      run: dotnet sonarscanner begin /k:"${{ secrets.SONAR_PROJ_KEY }}" /o:"alexiscesar" /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.cs.opencover.reportsPaths=/home/runner/work/postech-tech-challenges/postech-tech-challenges/coverage.xml
-    - name: Build again
-      run: dotnet build --no-incremental
+      run: dotnet sonarscanner begin /k:"${{ secrets.SONAR_PROJ_KEY }}" /o:"alexiscesar" /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.cs.opencover.reportsPaths=$(Agent.BuildDirectory)/**/coverage.xml /d:sonar.verbose=true
+    - name: Restore dependencies
+      run: dotnet restore
+    - name: Build
+      run: dotnet build --no-restore
     - name: Generate coverage file
-      run: coverlet .\ControleDePedidos.UseCases.Tests\bin\Debug\net8.0\ControleDePedidos.UseCases.Tests.dll --target "dotnet" --targetargs "test .\ControleDePedidos.UseCases.Tests --no-build" -f=opencover -o="coverage.xml"
-    - name: end sonarscanner
+      run: |
+        dotnet test "ControleDePedidos.UseCases.Tests" --no-build --verbosity normal /p:CollectCoverage=true /p:CoverletOutput=coverage.xml /p:CoverletOutputFormat=opencover /p:UseSourceLink=true
+    - name: List cov files
+      run: ls **/coverage.xml
+    - name: Print cov file
+      run: cat ControleDePedidos.UseCases.Tests/coverage.xml
+    - name: End sonarscanner
       run: dotnet sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
