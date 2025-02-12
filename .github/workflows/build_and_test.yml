@@ -21,17 +21,19 @@ jobs:
     - name: Unshallow
       run: git fetch --unshallow
     - name: Run sonarscanner
-      run: dotnet sonarscanner begin /k:"${{ secrets.SONAR_PROJ_KEY }}" /o:"alexiscesar" /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.cs.opencover.reportsPaths=$(Agent.BuildDirectory)/**/coverage.xml /d:sonar.verbose=true
+      run: dotnet sonarscanner begin /k:"${{ secrets.SONAR_PROJ_KEY }}" /o:"alexiscesar" /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.cs.opencover.reportsPaths=/home/runner/work/postech-tech-challenges/postech-tech-challenges/ControleDePedidos.UseCases.Tests/coverage.xml /d:sonar.verbose=true /d:sonar.projectBaseDir=/home/runner/work/postech-tech-challenges/postech-tech-challenges
     - name: Restore dependencies
       run: dotnet restore
     - name: Build
       run: dotnet build --no-restore
     - name: Generate coverage file
       run: |
-        dotnet test "ControleDePedidos.UseCases.Tests" --no-build --verbosity normal /p:CollectCoverage=true /p:CoverletOutput=coverage.xml /p:CoverletOutputFormat=opencover /p:UseSourceLink=true
+        dotnet test "ControleDePedidos.UseCases.Tests" --no-build --verbosity normal /p:CollectCoverage=true /p:CoverletOutput=coverage.xml /p:CoverletOutputFormat=opencover /p:UseSourceLink=false
     - name: List cov files
       run: ls **/coverage.xml
-    - name: Print cov file
-      run: cat ControleDePedidos.UseCases.Tests/coverage.xml
+    - name: pwd
+      run: pwd
+    - name: Print cov file full path
+      run: cat /home/runner/work/postech-tech-challenges/postech-tech-challenges/ControleDePedidos.UseCases.Tests/coverage.xml
     - name: End sonarscanner
       run: dotnet sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
