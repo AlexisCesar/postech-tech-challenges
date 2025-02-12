@@ -1,8 +1,6 @@
 name: Build and test .NET
 
 on:
-  push:
-    branches: [ "master", "develop", "actions", "f_*" ]
   pull_request:
     branches: [ "master", "develop", "actions", "f_*"]
 
@@ -16,22 +14,26 @@ jobs:
       uses: actions/setup-dotnet@v4
       with:
         dotnet-version: 8.0.x
+    - name: Install coverlet
+      run: dotnet tool install --global coverlet.console
+    - name: Install sonarscanner
+      run: dotnet tool install --global dotnet-sonarscanner
+    - name: Unshallow
+      run: git fetch --unshallow
+    - name: Run sonarscanner
+      run: dotnet sonarscanner begin /k:"${{ secrets.SONAR_PROJ_KEY }}" /o:"alexiscesar" /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.cs.opencover.reportsPaths=**/coverage.xml /d:sonar.verbose=true
     - name: Restore dependencies
       run: dotnet restore
     - name: Build
       run: dotnet build --no-restore
-    - name: Test
-      run: dotnet test --no-build --verbosity normal
-  smoke_test:
-    runs-on: ubuntu-latest
-    needs: build_and_test
-    if: github.ref == 'refs/heads/actions'
-    
-    steps:
-      - uses: actions/checkout@v4
-      - name: Run smoke tests
-        env: 
-          project_name: ${{ secrets.PROJECT_NAME }}
-        shell: pwsh
-        run: |
-          ./smokeTest.ps1
+    - name: Generate coverage file
+      run: |
+        dotnet test "ControleDePedidos.UseCases.Tests" --no-build --verbosity normal /p:CollectCoverage=true /p:CoverletOutput=coverage.xml /p:CoverletOutputFormat=opencover /p:UseSourceLink=false
+    - name: List cov files
+      run: ls **/coverage.xml
+    - name: pwd
+      run: pwd
+    - name: Print cov file full path
+      run: cat /home/runner/work/postech-tech-challenges/postech-tech-challenges/ControleDePedidos.UseCases.Tests/coverage.xml
+    - name: End sonarscanner
+      run: dotnet sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"

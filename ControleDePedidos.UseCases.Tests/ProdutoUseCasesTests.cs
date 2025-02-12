@@ -29,5 +29,25 @@ namespace ControleDePedidos.UseCases.Tests
         {
             Assert.That(_produtoUseCases, Is.Not.Null);
         }
+
+        [Test]
+        public void Test()
+        {
+            var sut = new UseCaseCopia(new Mock<IClientePersistenceGateway>().Object);
+
+            var result = sut.RetornarBaseadoEmParametro(1);
+
+            Assert.That(result, Is.EqualTo("a"));
+        }
+
+        [Test]
+        public void Test2()
+        {
+            var sut = new UseCaseCopia(new Mock<IClientePersistenceGateway>().Object);
+
+            var result = sut.RetornarBaseadoEmParametro(2);
+
+            Assert.That(result, Is.EqualTo("b"));
+        }
     }
 }
