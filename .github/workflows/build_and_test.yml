@@ -21,7 +21,7 @@ jobs:
     - name: Unshallow
       run: git fetch --unshallow
     - name: Run sonarscanner
-      run: dotnet sonarscanner begin /k:"${{ secrets.SONAR_PROJ_KEY }}" /o:"alexiscesar" /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.cs.opencover.reportsPaths=/home/runner/work/postech-tech-challenges/postech-tech-challenges/ControleDePedidos.UseCases.Tests/coverage.xml /d:sonar.verbose=true /d:sonar.projectBaseDir=/home/runner/work/postech-tech-challenges/postech-tech-challenges
+      run: dotnet sonarscanner begin /k:"${{ secrets.SONAR_PROJ_KEY }}" /o:"alexiscesar" /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.cs.opencover.reportsPaths=**/coverage.xml /d:sonar.verbose=true
     - name: Restore dependencies
       run: dotnet restore
     - name: Build
